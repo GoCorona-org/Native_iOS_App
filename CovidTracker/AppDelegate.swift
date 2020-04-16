@@ -13,7 +13,7 @@ import GooglePlaces
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let googleApiKey = "AIzaSyC27JH01DDgdhoK7_-VpXvqLCFzSTDS5Vk"
+    let googleApiKey = ""
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
