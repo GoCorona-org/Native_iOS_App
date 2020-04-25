@@ -67,7 +67,9 @@ class CountryTableViewCell: UITableViewCell {
     let closeButton: UIButton = {
         let view = UIButton()
         view.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        view.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        let symbol = UIImage.SymbolConfiguration(pointSize: 25.0, weight: .light)
+        view.setImage(UIImage(systemName: "xmark.circle", withConfiguration: symbol), for: .normal)
+        view.tintColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

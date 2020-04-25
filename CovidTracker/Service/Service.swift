@@ -12,7 +12,7 @@ class Service: NSObject {
     
     static let shared = Service()
     
-    func sendData(inputData: LocationHistoryForServer) {
+    func sendData(inputData: LocationHistoryForServer, completion: @escaping (String?, Error?) -> ()) {
         let urlString = "http://52.66.156.232:8000/report/"
         guard let url = URL(string: urlString) else { return }
         do {
@@ -27,13 +27,13 @@ class Service: NSObject {
             
             URLSession.shared.dataTask(with: request, completionHandler: {(data, response, error) in
                 guard error == nil else {
-                    print("error calling POST on /corona_app")
+                    print("error calling POST on /report")
                     print(error!)
-                    return
+                    return completion(nil, error)
                 }
                 guard let responseData = data else {
                     print("Error: did not receive data")
-                    return
+                    return completion(nil, error)
                 }
                 
                 // parse the result as JSON, since that's what the API provides
@@ -44,6 +44,9 @@ class Service: NSObject {
                     }
                     print(receivedData)
                     print("The todo is: " + receivedData.description)
+                    DispatchQueue.main.async {
+                        completion(receivedData, nil)
+                    }
                 } catch  {
                     print("error parsing response from POST on /todos")
                     return
@@ -53,5 +56,40 @@ class Service: NSObject {
         } catch let error {
             print("Error occured in parsing JSON input data. \(error)")
         }
+    }
+    
+    func startCalculation() {
+        let urlString = "http://52.66.156.232:8000/report/"
+        guard let url = URL(string: urlString) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {(data, response, error) in
+            guard error == nil else {
+                print("error calling GET on /report")
+                print(error!)
+                return
+            }
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            
+            // parse the result as JSON, since that's what the API provides
+            do {
+                guard let receivedData = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments)  as? String else {
+                    print("Error in reading the response from the data.")
+                    return
+                }
+                print(receivedData)
+                print("The todo is: " + receivedData.description)
+            } catch  {
+                print("error parsing response from POST on /todos")
+                return
+            }
+            }).resume()
     }
 }

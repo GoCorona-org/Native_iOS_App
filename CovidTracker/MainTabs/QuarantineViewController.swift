@@ -15,7 +15,7 @@ class QuarantineViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        view.backgroundColor = .yellow
+        view.backgroundColor = .darkGray
         
         let navView = createNavView()
         if let menuButton = navView.subviews.first(where: {$0 is UIButton}) as? UIButton {

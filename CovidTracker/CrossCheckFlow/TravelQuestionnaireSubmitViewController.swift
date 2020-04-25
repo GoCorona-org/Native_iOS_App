@@ -1,14 +1,14 @@
 //
-//  TravelQuestionnaireSecondViewController.swift
+//  TravelQuestionnaireSubmitViewController.swift
 //  CovidTracker
 //
-//  Created by Rachit Anurag on 2020/04/21.
+//  Created by Rachit Anurag on 2020/04/25.
 //  Copyright © 2020 Rachit Anurag. All rights reserved.
 //
 
 import UIKit
 
-class TravelQuestionnaireSecondViewController: CrossCheckViewController {
+class TravelQuestionnaireSubmitViewController: CrossCheckViewController {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -32,7 +32,7 @@ class TravelQuestionnaireSecondViewController: CrossCheckViewController {
     let travelQuestionnaireHeading: UILabel = {
         let view = UILabel()
         view.frame = CGRect(x: 0, y: 0, width: 350, height: 40)
-        view.text = "What about domestic travel?"
+        view.text = "Stranded due to the lockdown?"
         view.textAlignment = .left
         view.numberOfLines = 2
         view.lineBreakMode =  .byWordWrapping
@@ -45,7 +45,7 @@ class TravelQuestionnaireSecondViewController: CrossCheckViewController {
     let pageicon: UIImageView = {
         let view = UIImageView()
         view.frame = CGRect(x: 0, y: 0, width: 250, height: 230)
-        view.image = UIImage(named: "domestictravelicon")
+        view.image = UIImage(named: "lockdownicon")
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -54,31 +54,47 @@ class TravelQuestionnaireSecondViewController: CrossCheckViewController {
     let firstSectionHeading: UILabel = {
         let view = UILabel()
         view.frame = CGRect(x: 0, y: 0, width: 350, height: 20)
-        view.text = "Have you travelled anywhere inside India by flight in the last 30 days?"
-        view.textAlignment = .left
-        view.backgroundColor = .systemBackground
+        view.text = "Which city are you from and where are you staying now?"
         view.numberOfLines = 2
         view.lineBreakMode = .byWordWrapping
+        view.textAlignment = .left
+        view.backgroundColor = .systemBackground
         view.textColor = UIColor(rgb: 0x1C1C1C)
         view.font = UIFont(name: "FiraSans-Light", size: 16)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let firstSectionTableView: UITableView = {
-        let view = UITableView()
-        view.frame = CGRect(x: 0, y: 0, width: 300, height: 400)
-        view.tag = 0
+    let hometownField: UITextField = {
+        let view = UITextField()
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 30)
+        view.layer.cornerRadius = 5.0
+        view.attributedPlaceholder = NSAttributedString(string: "Hometown", attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: 0x989898)])
+        view.autocorrectionType = .yes
+        view.backgroundColor = UIColor(rgb: 0xE9E9E9)
+        view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
+        view.leftViewMode = .always
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let firstTableCellId = "domesticTravelCellID"
+    let currentLocationField: UITextField = {
+        let view = UITextField()
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 30)
+        view.layer.cornerRadius = 5.0
+        view.attributedPlaceholder = NSAttributedString(string: "Current Location", attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: 0x989898)])
+        view.autocorrectionType = .yes
+        view.backgroundColor = UIColor(rgb: 0xE9E9E9)
+        view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
+        view.leftViewMode = .always
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     let secondSectionHeading: UILabel = {
         let view = UILabel()
         view.frame = CGRect(x: 0, y: 0, width: 350, height: 20)
-        view.text = "If yes, then select the airports you were at"
+        view.text = "What modes of transport have you used for commute in the last 30 days?"
         view.textAlignment = .left
         view.backgroundColor = .systemBackground
         view.numberOfLines = 2
@@ -89,55 +105,42 @@ class TravelQuestionnaireSecondViewController: CrossCheckViewController {
         return view
     }()
     
-    let fromField: UITextField = {
-        let view = UITextField()
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 30)
-        view.layer.cornerRadius = 5.0
-        view.attributedPlaceholder = NSAttributedString(string: "From", attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: 0x989898)])
-        view.autocorrectionType = .yes
-        view.backgroundColor = UIColor(rgb: 0xE9E9E9)
-        view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
-        view.leftViewMode = .always
+    let secondSectionTableView: UITableView = {
+        let view = UITableView()
+        view.frame = CGRect(x: 0, y: 0, width: 300, height: 400)
+        view.allowsMultipleSelection = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let toField: UITextField = {
-        let view = UITextField()
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 30)
-        view.layer.cornerRadius = 5.0
-        view.attributedPlaceholder = NSAttributedString(string: "To", attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: 0x989898)])
-        view.autocorrectionType = .yes
-        view.backgroundColor = UIColor(rgb: 0xE9E9E9)
-        view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
-        view.leftViewMode = .always
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    let secondTableCellId = "travelOptionsCellID"
+    
+    let travelOptions = ["Local train or bus", "Auto rickshaw or cab", "Personal Vehicle"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        introductionLabel.text = "Travel"
+        introductionLabel.text = "Lockdown"
         backButton.isHidden = false
         nextButton.isHidden = false
+        nextButton.setTitle("Submit", for: .normal)
         
-        firstSectionTableView.register(OptionsTableViewCell.self, forCellReuseIdentifier: firstTableCellId)
-        firstSectionTableView.delegate = self
-        firstSectionTableView.dataSource = self
+        secondSectionTableView.register(OptionsTableViewCell.self, forCellReuseIdentifier: secondTableCellId)
+        secondSectionTableView.delegate = self
+        secondSectionTableView.dataSource = self
         
-        progressView.setProgress(0.75, animated: true)
+        progressView.setProgress(1.0, animated: true)
     }
     
     override func addIntoBodyView() {
         scrollView.addSubview(travelQuestionnaireHeading)
         scrollView.addSubview(pageicon)
         scrollView.addSubview(firstSectionHeading)
-        scrollView.addSubview(firstSectionTableView)
+        scrollView.addSubview(hometownField)
+        scrollView.addSubview(currentLocationField)
         
         scrollView.addSubview(secondSectionHeading)
-        scrollView.addSubview(fromField)
-        scrollView.addSubview(toField)
+        scrollView.addSubview(secondSectionTableView)
         
         bodyBaseView.addSubview(scrollView)
     }
@@ -163,25 +166,25 @@ class TravelQuestionnaireSecondViewController: CrossCheckViewController {
         firstSectionHeading.widthAnchor.constraint(equalToConstant: 350).isActive = true
         firstSectionHeading.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        firstSectionTableView.topAnchor.constraint(equalTo: firstSectionHeading.bottomAnchor).isActive = true
-        firstSectionTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        firstSectionTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
-        firstSectionTableView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        hometownField.topAnchor.constraint(equalTo: firstSectionHeading.bottomAnchor, constant: 10).isActive = true
+        hometownField.leadingAnchor.constraint(equalTo: travelQuestionnaireHeading.leadingAnchor, constant: 10).isActive = true
+        hometownField.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*60)).isActive = true
+        hometownField.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        secondSectionHeading.topAnchor.constraint(equalTo: firstSectionTableView.bottomAnchor, constant: 20).isActive = true
+        currentLocationField.topAnchor.constraint(equalTo: hometownField.bottomAnchor, constant: 10).isActive = true
+        currentLocationField.leadingAnchor.constraint(equalTo: travelQuestionnaireHeading.leadingAnchor, constant: 10).isActive = true
+        currentLocationField.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*60)).isActive = true
+        currentLocationField.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        secondSectionHeading.topAnchor.constraint(equalTo: currentLocationField.bottomAnchor, constant: 20).isActive = true
         secondSectionHeading.leadingAnchor.constraint(equalTo: travelQuestionnaireHeading.leadingAnchor).isActive = true
         secondSectionHeading.widthAnchor.constraint(equalToConstant: 350).isActive = true
         secondSectionHeading.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        fromField.topAnchor.constraint(equalTo: secondSectionHeading.bottomAnchor, constant: 10).isActive = true
-        fromField.leadingAnchor.constraint(equalTo: travelQuestionnaireHeading.leadingAnchor, constant: 10).isActive = true
-        fromField.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*60)).isActive = true
-        fromField.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        toField.topAnchor.constraint(equalTo: fromField.bottomAnchor, constant: 10).isActive = true
-        toField.leadingAnchor.constraint(equalTo: travelQuestionnaireHeading.leadingAnchor, constant: 10).isActive = true
-        toField.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*60)).isActive = true
-        toField.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        secondSectionTableView.topAnchor.constraint(equalTo: secondSectionHeading.bottomAnchor).isActive = true
+        secondSectionTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        secondSectionTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
+        secondSectionTableView.heightAnchor.constraint(equalToConstant: 105).isActive = true
     }
     
     override func backButtonIsTapped(sender: UIButton) {
@@ -189,21 +192,24 @@ class TravelQuestionnaireSecondViewController: CrossCheckViewController {
     }
     
     override func nextButtonIsTapped(sender: UIButton) {
-        print("Next button is tapped.")
-        let vc = TravelQuestionnaireSubmitViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        print("Submit button is tapped.")
+        let uiAlertController = UIAlertController(title: "Submitted", message: "Your travel questionnaire data has been submitted successfully.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: {_ in
+            self.navigationController?.popToRootViewController(animated: true)
+        })
+        uiAlertController.addAction(action)
+        self.navigationController?.present(uiAlertController, animated: true, completion: nil)
     }
-    
 }
-extension TravelQuestionnaireSecondViewController: UITableViewDelegate, UITableViewDataSource {
+extension TravelQuestionnaireSubmitViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return options.count
+        return travelOptions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: firstTableCellId, for: indexPath) as? OptionsTableViewCell {
-            cell.textLabel?.text = options[indexPath.item]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: secondTableCellId, for: indexPath) as? OptionsTableViewCell {
+            cell.textLabel?.text = travelOptions[indexPath.item]
             return cell
         } else {
             return UITableViewCell()
@@ -215,5 +221,6 @@ extension TravelQuestionnaireSecondViewController: UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        ///print(healthHistorySymptoms[indexPath.item])
     }
 }

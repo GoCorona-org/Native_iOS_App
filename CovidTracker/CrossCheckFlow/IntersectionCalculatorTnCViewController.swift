@@ -14,6 +14,21 @@ class IntersectionCalculatorTnCViewController: CrossCheckViewController {
         return .portrait
     }
     
+    let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        var finalHeight: CGFloat = 0.0
+        if let size = bodySize  {
+            finalHeight = size.height
+        } else {
+            finalHeight = 550.0
+        }
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: finalHeight)
+        view.contentSize = CGSize(width: UIScreen.main.bounds.width, height: finalHeight)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     let tAndCIcon: UIImageView = {
         let view = UIImageView()
         view.frame = CGRect(x: 0, y: 0, width: 250, height: 210)
@@ -68,26 +83,33 @@ class IntersectionCalculatorTnCViewController: CrossCheckViewController {
         introductionLabel.text = "Patient"
         backButton.isHidden = false
         nextButton.isHidden = false
+        
+        progressView.setProgress(0.75, animated: true)
     }
     
     override func addIntoBodyView() {
-        bodyBaseView.addSubview(tAndCIcon)
-        bodyBaseView.addSubview(tAndCDescriptionText)
-        bodyBaseView.addSubview(checkbox)
-        bodyBaseView.addSubview(agreementLabel)
+        scrollView.addSubview(tAndCIcon)
+        scrollView.addSubview(tAndCDescriptionText)
+        scrollView.addSubview(checkbox)
+        scrollView.addSubview(agreementLabel)
+        
+        bodyBaseView.addSubview(scrollView)
     }
     
     override func placeBodyViews() {
-        tAndCIcon.centerXAnchor.constraint(equalTo: bodyBaseView.centerXAnchor).isActive = true
-        tAndCIcon.topAnchor.constraint(equalTo: bodyBaseView.topAnchor, constant: 10).isActive = true
+        scrollView.topAnchor.constraint(equalTo: bodyBaseView.topAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: bodyBaseView.widthAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor).isActive = true
+        scrollView.heightAnchor.constraint(equalTo: bodyBaseView.heightAnchor).isActive = true
+        
+        tAndCIcon.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        tAndCIcon.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
         tAndCIcon.widthAnchor.constraint(equalToConstant: 220).isActive = true
         tAndCIcon.heightAnchor.constraint(equalToConstant: 180).isActive = true
         
-        tAndCDescriptionText.centerXAnchor.constraint(equalTo: bodyBaseView.centerXAnchor).isActive = true
+        tAndCDescriptionText.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         tAndCDescriptionText.topAnchor.constraint(equalTo: tAndCIcon.bottomAnchor, constant: 10).isActive = true
-        tAndCDescriptionText.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor, constant:
-        40).isActive = true
-        tAndCDescriptionText.trailingAnchor.constraint(equalTo: bodyBaseView.trailingAnchor, constant: -40).isActive = true
+        tAndCDescriptionText.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*40)).isActive = true
         tAndCDescriptionText.heightAnchor.constraint(equalToConstant: 280).isActive = true
         
         checkbox.topAnchor.constraint(equalTo: tAndCDescriptionText.bottomAnchor, constant: 10).isActive = true

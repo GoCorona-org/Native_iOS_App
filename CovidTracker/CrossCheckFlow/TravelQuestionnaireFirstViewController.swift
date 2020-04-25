@@ -15,6 +15,21 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController {
         return .portrait
     }
     
+    let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        var finalHeight: CGFloat = 0.0
+        if let size = bodySize  {
+            finalHeight = size.height
+        } else {
+            finalHeight = 700.0
+        }
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: finalHeight)
+        view.contentSize = CGSize(width: UIScreen.main.bounds.width, height: finalHeight + 200)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     let travelQuestionnaireHeading: UILabel = {
         let view = UILabel()
         view.frame = CGRect(x: 0, y: 0, width: 350, height: 40)
@@ -43,7 +58,7 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController {
         view.text = "Or even arrived in India in the last 20 days?"
         view.textAlignment = .left
         view.backgroundColor = .systemBackground
-        view.textColor = UIColor.label//UIColor(rgb: 0x1C1C1C)
+        view.textColor = UIColor(rgb: 0x1C1C1C)
         view.font = UIFont(name: "FiraSans-Light", size: 16)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -84,7 +99,6 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController {
         view.font = UIFont(name: "HelveticaNeue", size: 16.0)
         view.maxNumberOfResults = 5
         view.maxResultsListHeight = 150
-        //view.filterStrings(["India", "Japan", "Australia", "Nepal", "Bhutan", "New Zealand"])
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -107,6 +121,7 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController {
         let view = UITableView()
         view.frame = CGRect(x: 0, y: 0, width: 300, height: 400)
         view.tag = 1
+        view.separatorColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -126,7 +141,7 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController {
         countryListTableView.delegate = self
         countryListTableView.dataSource = self
         
-        introductionLabel.text = "Patient"
+        introductionLabel.text = "Travel"
         backButton.isHidden = false
         nextButton.isHidden = false
         
@@ -134,32 +149,39 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController {
         countryField.filterStrings(countries)
         
         countryListTableView.isHidden = true
-    }
-    
-    override func viewDidLayoutSubviews() {
-        //countryListTableView.heightAnchor.constraint(equalToConstant: CGFloat(35 * selectedCountryList.count)).isActive = true
+        
+        showHideControls(isHide: true)
+        
+        progressView.setProgress(0.5, animated: true)
     }
     
     override func addIntoBodyView() {
-        bodyBaseView.addSubview(travelQuestionnaireHeading)
-        bodyBaseView.addSubview(pageicon)
-        bodyBaseView.addSubview(firstSectionHeading)
-        bodyBaseView.addSubview(firstSectionTableView)
-        bodyBaseView.addSubview(secondSectionHeading)
-        bodyBaseView.addSubview(countryField)
-        bodyBaseView.addSubview(addButton)
-        bodyBaseView.addSubview(countryListTableView)
+        scrollView.addSubview(travelQuestionnaireHeading)
+        scrollView.addSubview(pageicon)
+        scrollView.addSubview(firstSectionHeading)
+        scrollView.addSubview(firstSectionTableView)
+        scrollView.addSubview(secondSectionHeading)
+        scrollView.addSubview(countryField)
+        scrollView.addSubview(addButton)
+        scrollView.addSubview(countryListTableView)
+        
+        bodyBaseView.addSubview(scrollView)
     }
     
     override func placeBodyViews() {
-        travelQuestionnaireHeading.topAnchor.constraint(equalTo: bodyBaseView.topAnchor, constant: 10).isActive = true
-        travelQuestionnaireHeading.centerXAnchor.constraint(lessThanOrEqualTo: view.centerXAnchor, constant: -15).isActive = true
-        travelQuestionnaireHeading.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        scrollView.topAnchor.constraint(equalTo: bodyBaseView.topAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: bodyBaseView.widthAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor).isActive = true
+        scrollView.heightAnchor.constraint(equalTo: bodyBaseView.heightAnchor).isActive = true
+        
+        travelQuestionnaireHeading.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
+        travelQuestionnaireHeading.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        travelQuestionnaireHeading.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*20)).isActive = true
         travelQuestionnaireHeading.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         pageicon.topAnchor.constraint(equalTo: travelQuestionnaireHeading.bottomAnchor, constant: 10).isActive = true
-        pageicon.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor, constant: 25).isActive = true
-        pageicon.trailingAnchor.constraint(equalTo: bodyBaseView.trailingAnchor, constant: -25).isActive = true
+        pageicon.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        pageicon.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*35)).isActive = true
         pageicon.heightAnchor.constraint(equalToConstant: 180).isActive = true
         
         firstSectionHeading.topAnchor.constraint(equalTo: pageicon.bottomAnchor, constant: 20).isActive = true
@@ -168,7 +190,7 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController {
         firstSectionHeading.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         firstSectionTableView.topAnchor.constraint(equalTo: firstSectionHeading.bottomAnchor).isActive = true
-        firstSectionTableView.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor).isActive = true
+        firstSectionTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
         firstSectionTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
         firstSectionTableView.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
@@ -189,7 +211,7 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController {
         
         countryListTableView.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 10).isActive = true
         countryListTableView.leadingAnchor.constraint(equalTo: addButton.leadingAnchor).isActive = true
-        countryListTableView.widthAnchor.constraint(equalToConstant: 240).isActive = true
+        countryListTableView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*35)).isActive = true
         countryListTableView.heightAnchor.constraint(equalToConstant: 400).isActive = true
     }
     
@@ -208,6 +230,14 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController {
     
     override func nextButtonIsTapped(sender: UIButton) {
         print("Next button is tapped.")
+        let vc = TravelQuestionnaireSecondViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func showHideControls(isHide: Bool) {
+        addButton.isHidden = isHide
+        countryField.isHidden = isHide
+        secondSectionHeading.isHidden = isHide
     }
     
     fileprivate func localCountries() -> [String] {
@@ -253,10 +283,7 @@ extension TravelQuestionnaireFirstViewController: UITableViewDelegate, UITableVi
             cell.textLabel?.text = selectedCountryList[indexPath.item]
             cell.delegate = self
             return cell
-        }/* else if tableView.tag == 2, let cell = tableView.dequeueReusableCell(withIdentifier: thirdTableCellId, for: indexPath) as? OptionsTableViewCell {
-            cell.textLabel?.text = options[indexPath.item]
-            return cell
-        }*/ else {
+        } else {
             return UITableViewCell()
         }
     }
@@ -269,7 +296,14 @@ extension TravelQuestionnaireFirstViewController: UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        ///print(healthHistorySymptoms[indexPath.item])
+        if tableView.tag == 0, options[indexPath.item] == "Yes" {
+            showHideControls(isHide: false)
+        } else if tableView.tag == 0, options[indexPath.item] == "No" {
+            showHideControls(isHide: true)
+            selectedCountryList.removeAll()
+            countryListTableView.reloadData()
+            countryListTableView.isHidden = true
+        }
     }
 }
 extension TravelQuestionnaireFirstViewController: CountryCellDelegate {

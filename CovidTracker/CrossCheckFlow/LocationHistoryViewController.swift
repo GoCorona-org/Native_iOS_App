@@ -12,7 +12,34 @@ import NVActivityIndicatorView
 
 class LocationHistoryViewController: CrossCheckViewController, SFSafariViewControllerDelegate, DocumentDelegate {
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     var documentPicker: DocumentPicker!
+    private var isDataLoaded = false {
+        didSet {
+            if isDataLoaded {
+                nextButton.isEnabled = true
+            }
+        }
+    }
+    private var locationHistoryDataForServer: LocationHistoryForServer?
+    
+    let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        var finalHeight: CGFloat = 0.0
+        if let size = bodySize  {
+            finalHeight = size.height
+        } else {
+            finalHeight = 550.0
+        }
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: finalHeight)
+        view.contentSize = CGSize(width: UIScreen.main.bounds.width, height: finalHeight)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
     
     let tutorialHeading: UILabel = {
         let view = UILabel()
@@ -132,6 +159,12 @@ class LocationHistoryViewController: CrossCheckViewController, SFSafariViewContr
         
         activityIndicator.centerXAnchor.constraint(equalTo: bodyBaseView.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: bodyBaseView.centerYAnchor).isActive = true
+        
+        progressView.setProgress(1.0, animated: true)
+        
+        if !isDataLoaded {
+            nextButton.isEnabled = false
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -143,37 +176,44 @@ class LocationHistoryViewController: CrossCheckViewController, SFSafariViewContr
     }
     
     override func addIntoBodyView() {
-        bodyBaseView.addSubview(tutorialHeading)
-        bodyBaseView.addSubview(tutorialButton)
-        bodyBaseView.addSubview(googleDownloadButton)
-        bodyBaseView.addSubview(uploadHeading)
-        bodyBaseView.addSubview(uploadButton)
+        scrollView.addSubview(tutorialHeading)
+        scrollView.addSubview(tutorialButton)
+        scrollView.addSubview(googleDownloadButton)
+        scrollView.addSubview(uploadHeading)
+        scrollView.addSubview(uploadButton)
+        
+        bodyBaseView.addSubview(scrollView)
     }
     
     override func placeBodyViews() {
-        tutorialHeading.topAnchor.constraint(equalTo: bodyBaseView.topAnchor, constant: 20).isActive = true
-        tutorialHeading.centerXAnchor.constraint(equalTo: bodyBaseView.centerXAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: bodyBaseView.topAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: bodyBaseView.widthAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor).isActive = true
+        scrollView.heightAnchor.constraint(equalTo: bodyBaseView.heightAnchor).isActive = true
+        
+        tutorialHeading.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20).isActive = true
+        tutorialHeading.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         tutorialHeading.widthAnchor.constraint(equalToConstant: 350).isActive = true
         tutorialHeading.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         tutorialButton.topAnchor.constraint(equalTo: tutorialHeading.bottomAnchor, constant: 30).isActive = true
-        tutorialButton.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor, constant: 20).isActive = true
-        tutorialButton.trailingAnchor.constraint(equalTo: bodyBaseView.trailingAnchor, constant: -20).isActive = true
+        tutorialButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        tutorialButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*20)).isActive = true
         tutorialButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         googleDownloadButton.topAnchor.constraint(equalTo: tutorialButton.bottomAnchor, constant: 30).isActive = true
-        googleDownloadButton.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor, constant: 20).isActive = true
-        googleDownloadButton.trailingAnchor.constraint(equalTo: bodyBaseView.trailingAnchor, constant: -20).isActive = true
+        googleDownloadButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        googleDownloadButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*20)).isActive = true
         googleDownloadButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         uploadHeading.topAnchor.constraint(equalTo: googleDownloadButton.bottomAnchor, constant: 80).isActive = true
-        uploadHeading.centerXAnchor.constraint(equalTo: bodyBaseView.centerXAnchor).isActive = true
+        uploadHeading.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         uploadHeading.widthAnchor.constraint(equalToConstant: 350).isActive = true
         uploadHeading.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         uploadButton.topAnchor.constraint(equalTo: uploadHeading.bottomAnchor, constant: 30).isActive = true
-        uploadButton.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor, constant: 20).isActive = true
-        uploadButton.trailingAnchor.constraint(equalTo: bodyBaseView.trailingAnchor, constant: -20).isActive = true
+        uploadButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        uploadButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*20)).isActive = true
         uploadButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
@@ -183,7 +223,24 @@ class LocationHistoryViewController: CrossCheckViewController, SFSafariViewContr
     
     override func nextButtonIsTapped(sender: UIButton) {
         print("Submit button is tapped.")
-        showPopUp()
+        startProgressView()
+        if let locationData = locationHistoryDataForServer {
+            Service.shared.sendData(inputData: locationData, completion: {(identifier, error) in
+                if let err = error {
+                    print("Error occurred in fetching the identifier. \(err)")
+                    self.stopProgressView()
+                    self.showPopUp(title: "Upload Error", message: "Error in uploading the location data. Please try again later.")
+                } else if let identity = identifier {
+                    print("Identifier was fetched successfully. \(identity)")
+                    self.stopProgressView()
+                    Service.shared.startCalculation()
+                    self.showPopUp(title: "Upload Success", message: "Your location data has been uploaded successfully getting the intersection result.")
+                }
+            })
+        } else {
+            print("Data was not loaded or not present.")
+        }
+        
     }
     
     func startProgressView() {
@@ -203,8 +260,8 @@ class LocationHistoryViewController: CrossCheckViewController, SFSafariViewContr
         }
     }
     
-    func showPopUp() {
-        let uiAlertController = UIAlertController(title: "Upload Success", message: "Your location history has been shared successfully for intersection calculation with the COVID-19 affected area.", preferredStyle: .alert)
+    func showPopUp(title: String, message: String) {
+        let uiAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: {_ in
             print("Testing testing.")
         })
@@ -270,9 +327,9 @@ class LocationHistoryViewController: CrossCheckViewController, SFSafariViewContr
                     }
                     let id = UUID().uuidString
                     print(id)
-                    let locationHistoryForServer = LocationHistoryForServer(id: id, locationHistory: locationHistories)
-                    //print(locationHistoryForServer)
-                    Service.shared.sendData(inputData: locationHistoryForServer)
+                    locationHistoryDataForServer = LocationHistoryForServer(id: id, locationHistory: locationHistories)
+                    isDataLoaded = true
+                    self.showPopUp(title: "Data Preparation", message: "Data has been prepared successfully for the upload.")
                     stopProgressView()
                 } else {
                     print("JSON file couldn't be parsed.")

@@ -14,6 +14,21 @@ class CrossCheckViewController: UIViewController {
         return .portrait
     }
     
+    let scrollBaseView: UIScrollView = {
+        let view = UIScrollView()
+        var finalHeight: CGFloat = 0.0
+        if let size = bodySize  {
+            finalHeight = size.height
+        } else {
+            finalHeight = 550
+        }
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: finalHeight)
+        view.contentSize = CGSize(width: UIScreen.main.bounds.width, height: finalHeight)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     let headerView: UIView = {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)
@@ -195,6 +210,8 @@ class CrossCheckViewController: UIViewController {
         nextButton.isHidden = true
         backButton.isHidden = true
         introductionLabel.text = "Patient"
+        
+        progressView.setProgress(0.25, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -254,55 +271,63 @@ class CrossCheckViewController: UIViewController {
     }
     
     func addIntoBodyView() {
-        bodyBaseView.addSubview(questionnaireHeading)
-        bodyBaseView.addSubview(travelQuestionnaireCheckIcon)
-        bodyBaseView.addSubview(startQuestionnaireButton)
-        bodyBaseView.addSubview(middleSeparator)
-        bodyBaseView.addSubview(intersectionCalculatorHeading)
-        bodyBaseView.addSubview(intersectionCalculatorCheckIcon)
-        bodyBaseView.addSubview(startintersectionCalculatorButton)
-        bodyBaseView.addSubview(endSeparator)
+        scrollBaseView.addSubview(questionnaireHeading)
+        scrollBaseView.addSubview(travelQuestionnaireCheckIcon)
+        scrollBaseView.addSubview(startQuestionnaireButton)
+        scrollBaseView.addSubview(middleSeparator)
+        scrollBaseView.addSubview(intersectionCalculatorHeading)
+        scrollBaseView.addSubview(intersectionCalculatorCheckIcon)
+        scrollBaseView.addSubview(startintersectionCalculatorButton)
+        scrollBaseView.addSubview(endSeparator)
+        
+        bodyBaseView.addSubview(scrollBaseView)
     }
     
     func placeBodyViews() {
-        questionnaireHeading.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 30).isActive = true
-        questionnaireHeading.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        scrollBaseView.topAnchor.constraint(equalTo: bodyBaseView.topAnchor).isActive = true
+        scrollBaseView.widthAnchor.constraint(equalTo: bodyBaseView.widthAnchor).isActive = true
+        scrollBaseView.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor).isActive = true
+        scrollBaseView.heightAnchor.constraint(equalTo: bodyBaseView.heightAnchor).isActive = true
+        
+        questionnaireHeading.topAnchor.constraint(equalTo: scrollBaseView.topAnchor, constant: 30).isActive = true
+        questionnaireHeading.centerXAnchor.constraint(equalTo: scrollBaseView.centerXAnchor).isActive = true
         questionnaireHeading.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
         questionnaireHeading.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         travelQuestionnaireCheckIcon.topAnchor.constraint(equalTo: questionnaireHeading.bottomAnchor, constant: 5).isActive = true
-        travelQuestionnaireCheckIcon.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        travelQuestionnaireCheckIcon.centerXAnchor.constraint(equalTo: scrollBaseView.centerXAnchor).isActive = true
         travelQuestionnaireCheckIcon.widthAnchor.constraint(equalToConstant: 200).isActive = true
         travelQuestionnaireCheckIcon.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         startQuestionnaireButton.topAnchor.constraint(equalTo: travelQuestionnaireCheckIcon.bottomAnchor, constant: 10).isActive = true
-        startQuestionnaireButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        startQuestionnaireButton.centerXAnchor.constraint(equalTo: scrollBaseView.centerXAnchor).isActive = true
         startQuestionnaireButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
         startQuestionnaireButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         middleSeparator.topAnchor.constraint(equalTo: startQuestionnaireButton.bottomAnchor, constant: 10).isActive = true
-        middleSeparator.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        middleSeparator.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        middleSeparator.leadingAnchor.constraint(equalTo: scrollBaseView.leadingAnchor).isActive = true
+        middleSeparator.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
         middleSeparator.heightAnchor.constraint(equalToConstant: 3).isActive = true
         
         intersectionCalculatorHeading.topAnchor.constraint(equalTo: middleSeparator.bottomAnchor, constant: 50).isActive = true
-        intersectionCalculatorHeading.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        intersectionCalculatorHeading.centerXAnchor.constraint(equalTo: scrollBaseView.centerXAnchor).isActive = true
         intersectionCalculatorHeading.widthAnchor.constraint(equalToConstant: 350).isActive = true
         intersectionCalculatorHeading.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         intersectionCalculatorCheckIcon.topAnchor.constraint(equalTo: intersectionCalculatorHeading.bottomAnchor, constant: 5).isActive = true
-        intersectionCalculatorCheckIcon.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        intersectionCalculatorCheckIcon.centerXAnchor.constraint(equalTo: scrollBaseView.centerXAnchor).isActive = true
         intersectionCalculatorCheckIcon.widthAnchor.constraint(equalToConstant: 200).isActive = true
         intersectionCalculatorCheckIcon.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         startintersectionCalculatorButton.topAnchor.constraint(equalTo: intersectionCalculatorCheckIcon.bottomAnchor, constant: 10).isActive = true
-        startintersectionCalculatorButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        startintersectionCalculatorButton.centerXAnchor.constraint(equalTo: scrollBaseView.centerXAnchor).isActive = true
         startintersectionCalculatorButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
         startintersectionCalculatorButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         endSeparator.topAnchor.constraint(equalTo: startintersectionCalculatorButton.bottomAnchor, constant: 10).isActive = true
-        endSeparator.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        endSeparator.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        endSeparator.leadingAnchor.constraint(equalTo: scrollBaseView.leadingAnchor).isActive = true
+        endSeparator.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
         endSeparator.heightAnchor.constraint(equalToConstant: 3).isActive = true
     }
     
