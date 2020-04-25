@@ -9,7 +9,7 @@
 import UIKit
 import SearchTextField
 
-class TravelQuestionnaireFirstViewController: CrossCheckViewController {
+class TravelQuestionnaireFirstViewController: CrossCheckViewController, UITextFieldDelegate {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -222,6 +222,11 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController {
             countryListTableView.reloadData()
             countryListTableView.isHidden = false
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
     
     override func backButtonIsTapped(sender: UIButton) {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TravelQuestionnaireSubmitViewController: CrossCheckViewController {
+class TravelQuestionnaireSubmitViewController: CrossCheckViewController, UITextFieldDelegate {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -130,6 +130,8 @@ class TravelQuestionnaireSubmitViewController: CrossCheckViewController {
         secondSectionTableView.dataSource = self
         
         progressView.setProgress(1.0, animated: true)
+        hometownField.delegate = self
+        currentLocationField.delegate = self
     }
     
     override func addIntoBodyView() {
@@ -185,6 +187,11 @@ class TravelQuestionnaireSubmitViewController: CrossCheckViewController {
         secondSectionTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
         secondSectionTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
         secondSectionTableView.heightAnchor.constraint(equalToConstant: 105).isActive = true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
     
     override func backButtonIsTapped(sender: UIButton) {
