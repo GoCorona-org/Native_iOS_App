@@ -1,33 +1,18 @@
 //
-//  CheckupTermsViewController.swift
+//  IntersectionCalculatorTnCViewController.swift
 //  CovidTracker
 //
-//  Created by Rachit Anurag on 2020/04/11.
+//  Created by Rachit Anurag on 2020/04/20.
 //  Copyright © 2020 Rachit Anurag. All rights reserved.
 //
 
 import UIKit
 
-class CheckupTermsViewController: CheckupViewController {
+class IntersectionCalculatorTnCViewController: CrossCheckViewController {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
-    
-    let scrollView: UIScrollView = {
-        let view = UIScrollView()
-        var finalHeight: CGFloat = 0.0
-        if let size = bodySize  {
-            finalHeight = size.height
-        } else {
-            finalHeight = 700.0
-        }
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: finalHeight)
-        view.contentSize = CGSize(width: UIScreen.main.bounds.width, height: finalHeight + 100)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
-        return view
-    }()
     
     let tAndCIcon: UIImageView = {
         let view = UIImageView()
@@ -41,7 +26,7 @@ class CheckupTermsViewController: CheckupViewController {
     let tAndCDescriptionText: UIImageView = {
         let view = UIImageView()
         view.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
-        view.image = UIImage(named: "checkuptnctext")
+        view.image = UIImage(named: "intersectiontnctext")
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -79,49 +64,33 @@ class CheckupTermsViewController: CheckupViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("New vc is loading up.")
         
+        introductionLabel.text = "Patient"
         backButton.isHidden = false
-    }
-    
-    override func backButtonIsTapped(sender: UIButton) {
-        print("New back button is tapped.")
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    override func nextButtonIsTapped(sender: UIButton) {
-        print("New next button is tapped.")
-        let nextVC = PatientIdentificationViewController()
-        self.navigationController?.pushViewController(nextVC, animated: true)
+        nextButton.isHidden = false
     }
     
     override func addIntoBodyView() {
-        scrollView.addSubview(tAndCIcon)
-        scrollView.addSubview(tAndCDescriptionText)
-        scrollView.addSubview(checkbox)
-        scrollView.addSubview(agreementLabel)
-        
-        bodyBaseView.addSubview(scrollView)
+        bodyBaseView.addSubview(tAndCIcon)
+        bodyBaseView.addSubview(tAndCDescriptionText)
+        bodyBaseView.addSubview(checkbox)
+        bodyBaseView.addSubview(agreementLabel)
     }
     
     override func placeBodyViews() {
-        
-        scrollView.topAnchor.constraint(equalTo: bodyBaseView.topAnchor).isActive = true
-        scrollView.widthAnchor.constraint(equalTo: bodyBaseView.widthAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor).isActive = true
-        scrollView.heightAnchor.constraint(equalTo: bodyBaseView.heightAnchor).isActive = true
-        
-        tAndCIcon.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        tAndCIcon.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
+        tAndCIcon.centerXAnchor.constraint(equalTo: bodyBaseView.centerXAnchor).isActive = true
+        tAndCIcon.topAnchor.constraint(equalTo: bodyBaseView.topAnchor, constant: 10).isActive = true
         tAndCIcon.widthAnchor.constraint(equalToConstant: 220).isActive = true
         tAndCIcon.heightAnchor.constraint(equalToConstant: 180).isActive = true
         
-        tAndCDescriptionText.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        tAndCDescriptionText.topAnchor.constraint(equalTo: tAndCIcon.bottomAnchor, constant: 0).isActive = true
-        tAndCDescriptionText.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*35)).isActive = true
+        tAndCDescriptionText.centerXAnchor.constraint(equalTo: bodyBaseView.centerXAnchor).isActive = true
+        tAndCDescriptionText.topAnchor.constraint(equalTo: tAndCIcon.bottomAnchor, constant: 10).isActive = true
+        tAndCDescriptionText.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor, constant:
+        40).isActive = true
+        tAndCDescriptionText.trailingAnchor.constraint(equalTo: bodyBaseView.trailingAnchor, constant: -40).isActive = true
         tAndCDescriptionText.heightAnchor.constraint(equalToConstant: 280).isActive = true
         
-        checkbox.topAnchor.constraint(equalTo: tAndCDescriptionText.bottomAnchor, constant: -20).isActive = true
+        checkbox.topAnchor.constraint(equalTo: tAndCDescriptionText.bottomAnchor, constant: 10).isActive = true
         checkbox.leadingAnchor.constraint(equalTo: tAndCDescriptionText.leadingAnchor).isActive  = true
         checkbox.widthAnchor.constraint(equalToConstant: 30).isActive = true
         checkbox.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -130,5 +99,14 @@ class CheckupTermsViewController: CheckupViewController {
         agreementLabel.centerYAnchor.constraint(equalTo: checkbox.centerYAnchor).isActive = true
         agreementLabel.widthAnchor.constraint(equalToConstant: 300).isActive = true
         agreementLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+    }
+    
+    override func backButtonIsTapped(sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    override func nextButtonIsTapped(sender: UIButton) {
+        let vc = LocationHistoryViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

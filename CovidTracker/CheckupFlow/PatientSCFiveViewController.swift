@@ -23,7 +23,7 @@ class PatientSCFiveViewController: CheckupViewController {
             finalHeight = 700.0
         }
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: finalHeight)
-        view.contentSize = CGSize(width: UIScreen.main.bounds.width, height: finalHeight + 100)
+        view.contentSize = CGSize(width: UIScreen.main.bounds.width, height: finalHeight + 200)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
         return view

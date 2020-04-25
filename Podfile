@@ -10,5 +10,5 @@ target 'CovidTracker' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'NVActivityIndicatorView'
-
+  pod "SearchTextField"
 end

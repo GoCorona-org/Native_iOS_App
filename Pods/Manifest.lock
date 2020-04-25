@@ -9,23 +9,27 @@ PODS:
   - NVActivityIndicatorView (4.8.0):
     - NVActivityIndicatorView/Presenter (= 4.8.0)
   - NVActivityIndicatorView/Presenter (4.8.0)
+  - SearchTextField (1.2.4)
 
 DEPENDENCIES:
   - GoogleMaps
   - GooglePlaces
   - NVActivityIndicatorView
+  - SearchTextField
 
 SPEC REPOS:
   trunk:
     - GoogleMaps
     - GooglePlaces
     - NVActivityIndicatorView
+    - SearchTextField
 
 SPEC CHECKSUMS:
   GoogleMaps: 7c8d66d70e4e8c300f43a7219d8fdaad7b325a9a
   GooglePlaces: d5f70c3e9e427964fdeca1301a665d276ccd8754
   NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
+  SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
 
-PODFILE CHECKSUM: d6c30daa347c2bca7d72ce32a5f56e8841c3d36b
+PODFILE CHECKSUM: 49c0f45c4c794cf523ecd571f9c2b49f38eb37e7
 
 COCOAPODS: 1.8.4

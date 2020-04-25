@@ -242,9 +242,8 @@ class LocationHistoryViewController: CrossCheckViewController, SFSafariViewContr
                     print(localeHistory.locations.count)
                     let correct = localeHistory.locations.filter({Int64($0.timestampMS) ?? 0 > 1580396400000}) // This is miliseconds time for the date 31st Jan 2020, 00:00:00
                     var locationHistories: [LocationHistoryServer] = []
+                    print(correct.count)
                     for location in correct {
-                        print(location.timestampMS)
-                        
                         let milisecond = Int64(location.timestampMS) ?? 0
                         let dateVar = Date(timeIntervalSince1970: TimeInterval((milisecond / 1000)))
                         let dateFormatter = DateFormatter()
@@ -269,7 +268,10 @@ class LocationHistoryViewController: CrossCheckViewController, SFSafariViewContr
                             locationHistories.append(LocationHistoryServer(timeslot: finalTime, lat: String(location.latitudeE7), long: String(location.longitudeE7), status: "unknown"))
                         }
                     }
-                    let locationHistoryForServer = LocationHistoryForServer(id: UUID().uuidString, locationHistory: locationHistories)
+                    let id = UUID().uuidString
+                    print(id)
+                    let locationHistoryForServer = LocationHistoryForServer(id: id, locationHistory: locationHistories)
+                    //print(locationHistoryForServer)
                     Service.shared.sendData(inputData: locationHistoryForServer)
                     stopProgressView()
                 } else {
@@ -285,6 +287,14 @@ class LocationHistoryViewController: CrossCheckViewController, SFSafariViewContr
     
     @objc func startTutorialButtonIsPressed(sender: UIButton) {
         print("Tutorial button is pressed.")
+        let urlString = "https://support.google.com/accounts/answer/3024190?hl=en"
+        
+        if let url = URL(string: urlString) {
+            let vc = SFSafariViewController(url: url)
+            vc.delegate = self
+            
+            present(vc, animated: true)
+        }
     }
     
     @objc func startGoogleTakeoutIsPressed(sender: UIButton) {

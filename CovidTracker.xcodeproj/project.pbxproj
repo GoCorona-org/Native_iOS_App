@@ -14,6 +14,13 @@
 		562394342440CE2E009EF7B7 /* CheckupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562394332440CE2E009EF7B7 /* CheckupViewController.swift */; };
 		562394362440D20B009EF7B7 /* QuarantineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562394352440D20B009EF7B7 /* QuarantineViewController.swift */; };
 		562394382440D24F009EF7B7 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562394372440D24F009EF7B7 /* InformationViewController.swift */; };
+		56572E00244B511000643BB8 /* IntersectionCalculatorIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572DFF244B511000643BB8 /* IntersectionCalculatorIntroViewController.swift */; };
+		56572E58244DCFCA00643BB8 /* IntersectionCalculatorTnCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E57244DCFCA00643BB8 /* IntersectionCalculatorTnCViewController.swift */; };
+		56572E5A244DD6E900643BB8 /* TravelQuestionnaireFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E59244DD6E900643BB8 /* TravelQuestionnaireFirstViewController.swift */; };
+		56572E5D244EE24D00643BB8 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 56572E5C244EE24D00643BB8 /* countries.json */; };
+		56572E5F244F38A800643BB8 /* TravelQuestionnaireSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E5E244F38A800643BB8 /* TravelQuestionnaireSecondViewController.swift */; };
+		56572E62245362A900643BB8 /* PatientSCSevenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E61245362A900643BB8 /* PatientSCSevenViewController.swift */; };
+		56572E64245398DA00643BB8 /* CheckupSubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E63245398DA00643BB8 /* CheckupSubmitViewController.swift */; };
 		5666E45624404651003B1965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5666E45524404651003B1965 /* AppDelegate.swift */; };
 		5666E45824404651003B1965 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5666E45724404651003B1965 /* SceneDelegate.swift */; };
 		5666E45A24404651003B1965 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5666E45924404651003B1965 /* ViewController.swift */; };
@@ -70,6 +77,13 @@
 		562394332440CE2E009EF7B7 /* CheckupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckupViewController.swift; sourceTree = "<group>"; };
 		562394352440D20B009EF7B7 /* QuarantineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuarantineViewController.swift; sourceTree = "<group>"; };
 		562394372440D24F009EF7B7 /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
+		56572DFF244B511000643BB8 /* IntersectionCalculatorIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntersectionCalculatorIntroViewController.swift; sourceTree = "<group>"; };
+		56572E57244DCFCA00643BB8 /* IntersectionCalculatorTnCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntersectionCalculatorTnCViewController.swift; sourceTree = "<group>"; };
+		56572E59244DD6E900643BB8 /* TravelQuestionnaireFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelQuestionnaireFirstViewController.swift; sourceTree = "<group>"; };
+		56572E5C244EE24D00643BB8 /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = countries.json; sourceTree = "<group>"; };
+		56572E5E244F38A800643BB8 /* TravelQuestionnaireSecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelQuestionnaireSecondViewController.swift; sourceTree = "<group>"; };
+		56572E61245362A900643BB8 /* PatientSCSevenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSCSevenViewController.swift; sourceTree = "<group>"; };
+		56572E63245398DA00643BB8 /* CheckupSubmitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckupSubmitViewController.swift; sourceTree = "<group>"; };
 		5666E45224404651003B1965 /* CovidTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CovidTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5666E45524404651003B1965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5666E45724404651003B1965 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +148,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		56572E5B244EE23300643BB8 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				56572E5C244EE24D00643BB8 /* countries.json */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		5659502E2448B2F70093F75E /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +185,7 @@
 		5666E45424404651003B1965 /* CovidTracker */ = {
 			isa = PBXGroup;
 			children = (
+				56572E5B244EE23300643BB8 /* Assets */,
 				56EA2BD2244583000044DEED /* Helpers */,
 				56EA2BC92444C9E80044DEED /* DocumentPicker */,
 				56EA2BC62444B3140044DEED /* CrossCheckFlow */,
@@ -197,6 +220,8 @@
 				56EA30B424484F1D0044DEED /* PatientSCFourViewController.swift */,
 				56EA30B6244850FC0044DEED /* PatientSCFiveViewController.swift */,
 				56EA30B8244854950044DEED /* PatientSCSixViewController.swift */,
+				56572E61245362A900643BB8 /* PatientSCSevenViewController.swift */,
+				56572E63245398DA00643BB8 /* CheckupSubmitViewController.swift */,
 			);
 			path = CheckupFlow;
 			sourceTree = "<group>";
@@ -251,6 +276,10 @@
 			isa = PBXGroup;
 			children = (
 				56EA2BC72444B33E0044DEED /* LocationHistoryViewController.swift */,
+				56572DFF244B511000643BB8 /* IntersectionCalculatorIntroViewController.swift */,
+				56572E57244DCFCA00643BB8 /* IntersectionCalculatorTnCViewController.swift */,
+				56572E59244DD6E900643BB8 /* TravelQuestionnaireFirstViewController.swift */,
+				56572E5E244F38A800643BB8 /* TravelQuestionnaireSecondViewController.swift */,
 			);
 			path = CrossCheckFlow;
 			sourceTree = "<group>";
@@ -369,6 +398,7 @@
 				56EA2BB92444A7740044DEED /* FiraSans-ExtraBoldItalic.ttf in Resources */,
 				56EA2BB42444A7740044DEED /* FiraSans-Italic.ttf in Resources */,
 				56EA2BB62444A7740044DEED /* FiraSans-Regular.ttf in Resources */,
+				56572E5D244EE24D00643BB8 /* countries.json in Resources */,
 				56EA2BB82444A7740044DEED /* FiraSans-SemiBold.ttf in Resources */,
 				56EA2BBD2444A7740044DEED /* FiraSans-BlackItalic.ttf in Resources */,
 				56EA2BC22444A7740044DEED /* FiraSans-ThinItalic.ttf in Resources */,
@@ -440,8 +470,10 @@
 				56EA30B3244770800044DEED /* PatientSCThreeViewController.swift in Sources */,
 				56EA30B7244850FC0044DEED /* PatientSCFiveViewController.swift in Sources */,
 				562394342440CE2E009EF7B7 /* CheckupViewController.swift in Sources */,
+				56572E64245398DA00643BB8 /* CheckupSubmitViewController.swift in Sources */,
 				56EA30B9244854950044DEED /* PatientSCSixViewController.swift in Sources */,
 				5666E45A24404651003B1965 /* ViewController.swift in Sources */,
+				56572E58244DCFCA00643BB8 /* IntersectionCalculatorTnCViewController.swift in Sources */,
 				56E194202440F27200EB08D0 /* CrossCheckViewController.swift in Sources */,
 				567D58622441E6BA00B0BE38 /* PatientIdentificationViewController.swift in Sources */,
 				56EA2BD4244583280044DEED /* LocationHistory.swift in Sources */,
@@ -449,14 +481,18 @@
 				5666E45624404651003B1965 /* AppDelegate.swift in Sources */,
 				562394322440CB51009EF7B7 /* TabBarController.swift in Sources */,
 				562394302440C6CE009EF7B7 /* HomeViewController.swift in Sources */,
+				56572E62245362A900643BB8 /* PatientSCSevenViewController.swift in Sources */,
 				567D58602441CB9300B0BE38 /* CheckupTermsViewController.swift in Sources */,
+				56572E5F244F38A800643BB8 /* TravelQuestionnaireSecondViewController.swift in Sources */,
 				56EA30B524484F1D0044DEED /* PatientSCFourViewController.swift in Sources */,
 				567D586B2443EDF200B0BE38 /* Service.swift in Sources */,
 				56EA2BD12444CA920044DEED /* DocumentCell.swift in Sources */,
 				56EA2BCF2444CA6D0044DEED /* Document.swift in Sources */,
 				5666E46A244046A9003B1965 /* SignUpViewController.swift in Sources */,
 				56EA2BCD2444CA3D0044DEED /* DocumentDelegate.swift in Sources */,
+				56572E00244B511000643BB8 /* IntersectionCalculatorIntroViewController.swift in Sources */,
 				56EA2C022445CD780044DEED /* SymptomTableViewCell.swift in Sources */,
+				56572E5A244DD6E900643BB8 /* TravelQuestionnaireFirstViewController.swift in Sources */,
 				5623942324406743009EF7B7 /* Checkbox.swift in Sources */,
 				5666E46C2440508C003B1965 /* Common.swift in Sources */,
 				567D5868244307A900B0BE38 /* PatientSymptomCheckViewController.swift in Sources */,
@@ -609,16 +645,18 @@
 			baseConfigurationReference = 21C86DB66DB6A88F762B6208 /* Pods-CovidTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R5XXHX52G9;
+				DEVELOPMENT_TEAM = 466PTFL2A4;
 				INFOPLIST_FILE = CovidTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rachitanuragteam.covidtracker;
+				PRODUCT_BUNDLE_IDENTIFIER = org.gocorona.covid19squadx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -629,16 +667,18 @@
 			baseConfigurationReference = 8E507CAD094DA4602D251233 /* Pods-CovidTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R5XXHX52G9;
+				DEVELOPMENT_TEAM = 466PTFL2A4;
 				INFOPLIST_FILE = CovidTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rachitanuragteam.covidtracker;
+				PRODUCT_BUNDLE_IDENTIFIER = org.gocorona.covid19squadx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

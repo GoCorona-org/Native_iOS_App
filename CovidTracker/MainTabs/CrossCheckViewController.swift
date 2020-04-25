@@ -174,6 +174,8 @@ class CrossCheckViewController: UIViewController {
         return view
     }()
     
+    let options = ["Yes", "No"]
+    
     var navView: UIView?
     
     override func viewDidLoad() {
@@ -319,167 +321,13 @@ class CrossCheckViewController: UIViewController {
     
     @objc func startQuestionnairePressed(sender: UIButton) {
         print("Questionnaire button is pressed.")
+        let vc = TravelQuestionnaireFirstViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func startIntersectionCalculationIsPressed(sender: UIButton) {
         print("Intersection calculator is pressed.")
-        let vc = LocationHistoryViewController()
+        let vc = IntersectionCalcutorIntroViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
-
-/*
-import UIKit
-
-class CrossCheckViewController: UIViewController {
-    
-    let nameField: UITextField = {
-        let view = UITextField()
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 50)
-        view.layer.cornerRadius = 5.0
-        view.layer.borderColor = UIColor.gray.cgColor
-        view.layer.borderWidth = 1.0
-        view.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
-        view.autocorrectionType = .no
-        view.backgroundColor = UIColor(red: 239, green: 239, blue: 239)
-        view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
-        view.leftViewMode = .always
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let statusField: UITextField = {
-        let view = UITextField()
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 50)
-        view.layer.cornerRadius = 5.0
-        view.layer.borderColor = UIColor.gray.cgColor
-        view.layer.borderWidth = 1.0
-        view.attributedPlaceholder = NSAttributedString(string: "Status", attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
-        view.autocorrectionType = .no
-        view.backgroundColor = UIColor(red: 239, green: 239, blue: 239)
-        view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
-        view.keyboardType = .numberPad
-        view.leftViewMode = .always
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let latitudeField: UITextField = {
-        let view = UITextField()
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 50)
-        view.layer.cornerRadius = 5.0
-        view.layer.borderColor = UIColor.gray.cgColor
-        view.layer.borderWidth = 1.0
-        view.attributedPlaceholder = NSAttributedString(string: "Latitude", attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
-        view.autocorrectionType = .no
-        view.backgroundColor = UIColor(red: 239, green: 239, blue: 239)
-        view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
-        view.keyboardType = .decimalPad
-        view.leftViewMode = .always
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let longitudeField: UITextField = {
-        let view = UITextField()
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 50)
-        view.layer.cornerRadius = 5.0
-        view.layer.borderColor = UIColor.gray.cgColor
-        view.layer.borderWidth = 1.0
-        view.attributedPlaceholder = NSAttributedString(string: "Logitude", attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
-        view.autocorrectionType = .no
-        view.backgroundColor = UIColor(red: 239, green: 239, blue: 239)
-        view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
-        view.keyboardType = .decimalPad
-        view.leftViewMode = .always
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let postButton: UIButton = {
-        let view = UIButton()
-        view.frame = CGRect(x: 0, y: 0, width: 150, height: 40)
-        view.layer.cornerRadius = 10.0
-        view.backgroundColor = UIColor(red: 231, green: 46, blue: 104)
-        view.setTitle("POST", for: .normal)
-        view.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 20.0)
-        view.titleLabel?.textAlignment = .center
-        view.addTarget(self, action: #selector(postButtonIsPressed(sender:)), for: .touchUpInside)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
-    }
-    
-    override func viewDidLoad() {
-        view.backgroundColor = .orange
-        
-        let navView = createNavView()
-        if let menuButton = navView.subviews.first(where: {$0 is UIButton}) as? UIButton {
-            menuButton.addTarget(self, action: #selector(sideMenuPressed(sender:)), for: .touchUpInside)
-        }
-        view.addSubview(navView)
-        
-        addViews()
-        placeViews()
-    }
-    
-    private func addViews() {
-        view.addSubview(nameField)
-        view.addSubview(statusField)
-        view.addSubview(latitudeField)
-        view.addSubview(longitudeField)
-        view.addSubview(postButton)
-    }
-    
-    private func placeViews() {
-        nameField.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 50).isActive = true
-        nameField.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 20).isActive = true
-        nameField.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -20).isActive = true
-        nameField.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        statusField.topAnchor.constraint(equalTo: nameField.bottomAnchor, constant: 20).isActive = true
-        statusField.leadingAnchor.constraint(equalTo: nameField.leadingAnchor).isActive = true
-        statusField.trailingAnchor.constraint(equalTo: nameField.trailingAnchor).isActive = true
-        statusField.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        latitudeField.topAnchor.constraint(equalTo: statusField.bottomAnchor, constant: 20).isActive = true
-        latitudeField.leadingAnchor.constraint(equalTo: statusField.leadingAnchor).isActive = true
-        latitudeField.trailingAnchor.constraint(equalTo: statusField.trailingAnchor).isActive = true
-        latitudeField.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        longitudeField.topAnchor.constraint(equalTo: latitudeField.bottomAnchor, constant: 20).isActive = true
-        longitudeField.leadingAnchor.constraint(equalTo: latitudeField.leadingAnchor).isActive = true
-        longitudeField.trailingAnchor.constraint(equalTo: latitudeField.trailingAnchor).isActive = true
-        longitudeField.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        postButton.topAnchor.constraint(equalTo: longitudeField.bottomAnchor, constant: 40).isActive = true
-        postButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        postButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        postButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-    }
-    
-    @objc func sideMenuPressed(sender: UIButton) {
-        print("Side menu pressed.")
-    }
-    
-    @objc func postButtonIsPressed(sender: UIButton) {
-        guard let name = nameField.text?.count == 0 ? UUID().uuidString : nameField.text else {
-            print("Name not found.")
-            return
-        }
-        guard let latitude = latitudeField.text?.count == 0 ? "35.689487" : latitudeField.text else {
-            print("Latitude not found.")
-            return
-        }
-        guard let longitude = longitudeField.text?.count == 0 ? "139.691711" : longitudeField.text else {
-            print("Longitude not found.")
-            return
-        }
-        let inputData: [String : Any] = ["name": name, "status": 0, "latitude": latitude, "longitude": longitude]
-        Service.shared.sendData(inputData: inputData)
-    }
-}
-*/

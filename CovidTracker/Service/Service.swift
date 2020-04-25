@@ -13,12 +13,11 @@ class Service: NSObject {
     static let shared = Service()
     
     func sendData(inputData: LocationHistoryForServer) {
-        let urlString = "http://127.0.0.1:8000/corona_app/"
+        let urlString = "http://52.66.156.232:8000/report/"
         guard let url = URL(string: urlString) else { return }
         do {
             let enc = JSONEncoder()
             let data = try enc.encode(inputData)
-            //let data = try JSONSerialization.data(withJSONObject: inputData, options: [])
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
@@ -26,10 +25,7 @@ class Service: NSObject {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
-            let task = URLSession.shared.dataTask(with: request)
-            task.resume()
-            
-            /*URLSession.shared.uploadTask(with: URLRequest(url: url), from: data, completionHandler: {(data, response, error) in
+            URLSession.shared.dataTask(with: request, completionHandler: {(data, response, error) in
                 guard error == nil else {
                     print("error calling POST on /corona_app")
                     print(error!)
@@ -42,29 +38,20 @@ class Service: NSObject {
                 
                 // parse the result as JSON, since that's what the API provides
                 do {
-                    guard let receivedTodo = try JSONSerialization.jsonObject(with: responseData,
-                                                                              options: []) as? [String: Any] else {
-                                                                                print("Could not get JSON from responseData as dictionary")
-                                                                                return
-                    }
-                    print(receivedTodo)
-                    print("The todo is: " + receivedTodo.description)
-                    
-                    guard let todoID = receivedTodo["id"] as? Int else {
-                        print("Could not get todoID as int from JSON")
+                    guard let receivedData = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments)  as? String else {
+                        print("Error in reading the response from the data.")
                         return
                     }
-                    print("The ID is: \(todoID)")
+                    print(receivedData)
+                    print("The todo is: " + receivedData.description)
                 } catch  {
                     print("error parsing response from POST on /todos")
                     return
                 }
-            }).resume()*/
+            }).resume()
+           
         } catch let error {
             print("Error occured in parsing JSON input data. \(error)")
         }
-        
-        
-        
     }
 }

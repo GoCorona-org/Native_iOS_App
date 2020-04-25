@@ -23,7 +23,7 @@ class PatientSCSixViewController: CheckupViewController {
             finalHeight = 700.0
         }
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: finalHeight)
-        view.contentSize = CGSize(width: UIScreen.main.bounds.width, height: finalHeight + 250)
+        view.contentSize = CGSize(width: UIScreen.main.bounds.width, height: finalHeight + 350)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
         return view
@@ -212,8 +212,8 @@ class PatientSCSixViewController: CheckupViewController {
     
     override func nextButtonIsTapped(sender: UIButton) {
         print("Next button is tapped in PatientSCThreeVC.")
-//        let vc = PatientSCSixViewController()
-//        navigationController?.pushViewController(vc, animated: true)
+        let vc = PatientSCSevenViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 extension PatientSCSixViewController: UITableViewDelegate, UITableViewDataSource {

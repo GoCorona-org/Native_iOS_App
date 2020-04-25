@@ -14,6 +14,21 @@ class CheckupViewController: UIViewController {
         return .portrait
     }
     
+    let scrollBaseView: UIScrollView = {
+        let view = UIScrollView()
+        var finalHeight: CGFloat = 0.0
+        if let size = bodySize  {
+            finalHeight = size.height
+        } else {
+            finalHeight = 550
+        }
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: finalHeight)
+        view.contentSize = CGSize(width: UIScreen.main.bounds.width, height: finalHeight)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     let headerView: UIView = {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)
@@ -124,7 +139,7 @@ class CheckupViewController: UIViewController {
         
         backButton.isHidden = true
         
-        checkupProgress = checkupProgress + 0.07142 //Total no of pages in the flow are 14 and the progress view's value ranges from 0 to 1. Therefore, each time page trasition occurs we increase it by 0.07142
+        checkupProgress = checkupProgress + 0.0769 //Total no of pages in the flow are 13 and the progress view's value ranges from 0 to 1. Therefore, each time page trasition occurs we increase it by 0.07142
         progressView.setProgress(checkupProgress, animated: true)
     }
     
@@ -199,21 +214,27 @@ class CheckupViewController: UIViewController {
     }
     
     func addIntoBodyView() {
-        bodyBaseView.addSubview(introIcon)
-        bodyBaseView.addSubview(introDescriptionTextIcon)
+        scrollBaseView.addSubview(introIcon)
+        scrollBaseView.addSubview(introDescriptionTextIcon)
+        
+        bodyBaseView.addSubview(scrollBaseView)
     }
     
     func placeBodyViews() {
-        introIcon.centerXAnchor.constraint(equalTo: bodyBaseView.centerXAnchor).isActive = true
-        introIcon.topAnchor.constraint(equalTo: bodyBaseView.topAnchor, constant: 30).isActive = true
+        
+        scrollBaseView.topAnchor.constraint(equalTo: bodyBaseView.topAnchor).isActive = true
+        scrollBaseView.widthAnchor.constraint(equalTo: bodyBaseView.widthAnchor).isActive = true
+        scrollBaseView.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor).isActive = true
+        scrollBaseView.heightAnchor.constraint(equalTo: bodyBaseView.heightAnchor).isActive = true
+        
+        introIcon.topAnchor.constraint(equalTo: scrollBaseView.topAnchor, constant: 30).isActive = true
+        introIcon.centerXAnchor.constraint(equalTo: scrollBaseView.centerXAnchor).isActive = true
         introIcon.widthAnchor.constraint(equalToConstant: 220).isActive = true
         introIcon.heightAnchor.constraint(equalToConstant: 180).isActive = true
         
-        introDescriptionTextIcon.centerXAnchor.constraint(equalTo: bodyBaseView.centerXAnchor).isActive = true
         introDescriptionTextIcon.topAnchor.constraint(equalTo: introIcon.bottomAnchor, constant: 0).isActive = true
-        introDescriptionTextIcon.leadingAnchor.constraint(equalTo: bodyBaseView.leadingAnchor, constant:
-        40).isActive = true
-        introDescriptionTextIcon.trailingAnchor.constraint(equalTo: bodyBaseView.trailingAnchor, constant: -40).isActive = true
+        introDescriptionTextIcon.centerXAnchor.constraint(equalTo: bodyBaseView.centerXAnchor).isActive = true
+        introDescriptionTextIcon.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - (2*35)).isActive = true
         introDescriptionTextIcon.heightAnchor.constraint(equalToConstant: 330).isActive = true
     }
 }
