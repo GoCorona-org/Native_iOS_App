@@ -64,10 +64,8 @@ class Service: NSObject {
         let urlString = "http://127.0.0.1:8000/report/"
         guard let url = URL(string: urlString) else { return }
         
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: url, timeoutInterval: 180.0)
         request.httpMethod = "GET"
-        //request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        //request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         URLSession.shared.dataTask(with: request, completionHandler: {(data, response, error) in
             guard error == nil else {
@@ -135,5 +133,79 @@ class Service: NSObject {
         } catch let error {
             print("Error occured in parsing JSON input data. \(error)")
         }
+    }
+    
+    func sendMedicalTravelData(inputData: TravelQuestionnaire, completion: @escaping (MedmapResult?, Error?) -> ()) {
+        let urlString = "http://127.0.0.1:8000/medmap/\(medicalUUID)/"
+        guard let url = URL(string: urlString) else { return }
+        do {
+            let enc = JSONEncoder()
+            let data = try enc.encode(inputData)
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.httpBody = data
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            URLSession.shared.dataTask(with: request, completionHandler: {(data, response, error) in
+                guard error == nil else {
+                    print("error calling POST on /report")
+                    print(error!)
+                    return completion(nil, error)
+                }
+                guard let responseData = data else {
+                    print("Error: did not receive data")
+                    return completion(nil, error)
+                }
+                
+                // parse the result as JSON, since that's what the API provides
+                do {
+                    let receivedData = try JSONDecoder().decode(MedmapResult.self, from: responseData)
+                    print(receivedData)
+                    DispatchQueue.main.async {
+                        completion(receivedData, nil)
+                    }
+                } catch  {
+                    print("error parsing response from POST on /todos")
+                    return
+                }
+            }).resume()
+           
+        } catch let error {
+            print("Error occured in parsing JSON input data. \(error)")
+        }
+    }
+    
+    func getMedicalResult(completion: @escaping (MedicalResult?, Error?) -> ()) {
+        let urlString = "http://127.0.0.1:8000/medmap/result/\(medicalUUID)/"
+        guard let url = URL(string: urlString) else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request, completionHandler: {(data, response, error) in
+            guard error == nil else {
+                print("error calling GET on /report")
+                print(error!)
+                return
+            }
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            
+            // parse the result as JSON, since that's what the API provides
+            // parse the result as JSON, since that's what the API provides
+            do {
+                let receivedData = try JSONDecoder().decode(MedicalResult.self, from: responseData)
+                print(receivedData)
+                DispatchQueue.main.async {
+                    completion(receivedData, nil)
+                }
+            } catch  {
+                print("error parsing response from POST on /todos")
+                return
+            }
+        }).resume()
     }
 }

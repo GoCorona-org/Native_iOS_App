@@ -19,7 +19,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey(googleApiKey)
         GMSPlacesClient.provideAPIKey(googleApiKey)
+        setIdentifiers()
         return true
+    }
+    
+    private func setIdentifiers() {
+        if let _userUUID = UserDefaults.standard.string(forKey: "USER_UUID"), let _intersectionUUID = UserDefaults.standard.string(forKey: "INTERSECTION_UUID"), let _medicalUUID = UserDefaults.standard.string(forKey: "MEDICAL_UUID") {
+            userUUID = _userUUID
+            intersectionUUID = _intersectionUUID
+            medicalUUID = _medicalUUID
+        } else {
+            let _userUUID = UUID().uuidString
+            UserDefaults.standard.set(_userUUID, forKey: "USER_UUID")
+            let _intersectionUUID = UUID().uuidString
+            UserDefaults.standard.set(_intersectionUUID, forKey: "INTERSECTION_UUID")
+            let _medicalUUID = UUID().uuidString
+            UserDefaults.standard.set(_medicalUUID, forKey: "MEDICAL_UUID")
+            userUUID = _userUUID
+            intersectionUUID = _intersectionUUID
+            medicalUUID = _medicalUUID
+        }
     }
 
     // MARK: UISceneSession Lifecycle

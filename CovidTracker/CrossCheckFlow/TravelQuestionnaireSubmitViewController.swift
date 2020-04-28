@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SearchTextField
 
 class TravelQuestionnaireSubmitViewController: CrossCheckViewController, UITextFieldDelegate {
     
@@ -65,27 +66,31 @@ class TravelQuestionnaireSubmitViewController: CrossCheckViewController, UITextF
         return view
     }()
     
-    let hometownField: UITextField = {
-        let view = UITextField()
+    let hometownField: SearchTextField = {
+        let view = SearchTextField()
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 30)
         view.layer.cornerRadius = 5.0
         view.attributedPlaceholder = NSAttributedString(string: "Hometown", attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: 0x989898)])
         view.autocorrectionType = .yes
         view.backgroundColor = UIColor(rgb: 0xE9E9E9)
         view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
+        view.maxNumberOfResults = 4
+        view.maxResultsListHeight = 100
         view.leftViewMode = .always
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let currentLocationField: UITextField = {
-        let view = UITextField()
+    let currentLocationField: SearchTextField = {
+        let view = SearchTextField()
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 30)
         view.layer.cornerRadius = 5.0
         view.attributedPlaceholder = NSAttributedString(string: "Current Location", attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: 0x989898)])
         view.autocorrectionType = .yes
         view.backgroundColor = UIColor(rgb: 0xE9E9E9)
         view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
+        view.maxNumberOfResults = 4
+        view.maxResultsListHeight = 100
         view.leftViewMode = .always
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -116,6 +121,7 @@ class TravelQuestionnaireSubmitViewController: CrossCheckViewController, UITextF
     let secondTableCellId = "travelOptionsCellID"
     
     let travelOptions = ["Local train or bus", "Auto rickshaw or cab", "Personal Vehicle"]
+    var selectedTravelOptions: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,6 +138,10 @@ class TravelQuestionnaireSubmitViewController: CrossCheckViewController, UITextF
         progressView.setProgress(1.0, animated: true)
         hometownField.delegate = self
         currentLocationField.delegate = self
+        
+        let cities = readCities()
+        hometownField.filterStrings(cities)
+        currentLocationField.filterStrings(indianStates)
     }
     
     override func addIntoBodyView() {
@@ -200,12 +210,48 @@ class TravelQuestionnaireSubmitViewController: CrossCheckViewController, UITextF
     
     override func nextButtonIsTapped(sender: UIButton) {
         print("Submit button is tapped.")
-        let uiAlertController = UIAlertController(title: "Submitted", message: "Your travel questionnaire data has been submitted successfully.", preferredStyle: .alert)
+        collectData()
+        Service.shared.sendMedicalTravelData(inputData: travelData, completion: {(medmapResult, error) in
+            if let err = error {
+                print("Error in getting the data from the URL. \(err)")
+            } else if let medResult = medmapResult {
+                print("Data was successfully sent to the server. \(medResult)")
+                Service.shared.getMedicalResult(completion: {(medicalResult, medicalError) in
+                    if let medErr = medicalError {
+                        print("Error occured in getting the medical score. \(medErr)")
+                    } else if let mediResult = medicalResult {
+                        print("Successfully received the medical result from the server.")
+                        self.showPopup(score: mediResult.score)
+                    }
+                })
+                
+            }
+        })
+    }
+    
+    private func showPopup(score: String) {
+        let uiAlertController = UIAlertController(title: "Submitted", message: "Your travel questionnaire data has been submitted successfully and you medical score is \(score)", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: {_ in
             self.navigationController?.popToRootViewController(animated: true)
         })
         uiAlertController.addAction(action)
         self.navigationController?.present(uiAlertController, animated: true, completion: nil)
+    }
+    
+    private func collectData() {
+        if let currentState = currentLocationField.text {
+            travelData.currentState = currentState
+        } else {
+            print("Current location of the user is not found.")
+        }
+        for option in selectedTravelOptions {
+            if option.contains("train") {
+                travelData.domesticTrain = true
+            } else if option.contains("cab") {
+                travelData.domesticAuto = true
+                travelData.domesticCab = true
+            }
+        }
     }
 }
 extension TravelQuestionnaireSubmitViewController: UITableViewDelegate, UITableViewDataSource {
@@ -228,6 +274,10 @@ extension TravelQuestionnaireSubmitViewController: UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        ///print(healthHistorySymptoms[indexPath.item])
+        selectedTravelOptions.append(travelOptions[indexPath.item])
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        selectedTravelOptions.removeAll(where: {$0 == travelOptions[indexPath.item]})
     }
 }

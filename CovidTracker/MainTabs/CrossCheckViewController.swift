@@ -355,4 +355,22 @@ class CrossCheckViewController: UIViewController {
         let vc = IntersectionCalcutorIntroViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func readCities() -> [String] {
+        let path = Bundle.main.path(forResource: "cities", ofType: "txt")
+        var airportCityList: [String] = []
+        
+        if let finalPath = path {
+            let ci = try? String(contentsOfFile: finalPath, encoding: String.Encoding.utf8)
+            if let words = ci {
+                let cities = words.split(separator: ",")
+                for city in cities {
+                    airportCityList.append(city.trimmingCharacters(in: .whitespaces))
+                }
+            }
+        } else {
+            print("Cities file is not found.")
+        }
+        return airportCityList
+    }
 }

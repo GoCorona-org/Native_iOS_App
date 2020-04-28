@@ -36,3 +36,13 @@ struct Medmap: Codable {
 
 
 var medicalData: Medmap = Medmap(medUUID: "", age: 0, height: 0, weight: 0, diabetes: false, kidney: false, heart: false, lungs: false, stroke: false, hypertension: false, hiv: false, transplant: false, fever: 0, cough: 0, breathlessness: false, fatigue: false, jointPain: false, lossOfTasteAndSmell: false, soreThroat: false, nasalCongestion: false, headache: false, chills: false, nauseaOrVomiting: false, diarrhea: false, conjunctivalCongestion: false, symptomsImprovement: 0)
+
+
+struct MedicalResult: Codable {
+    let score, scoreColor: String
+
+    enum CodingKeys: String, CodingKey {
+        case score
+        case scoreColor = "score_color"
+    }
+}

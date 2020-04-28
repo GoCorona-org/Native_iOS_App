@@ -71,8 +71,7 @@ class CheckupSubmitViewController: CheckupViewController {
     }
     
     override func nextButtonIsTapped(sender: UIButton) {
-        let medUUID = UUID().uuidString
-        medicalData.medUUID  = medUUID
+        medicalData.medUUID = medicalUUID
         Service.shared.sendMedicalData(inputData: medicalData, completion: {(result, error)  in
             if let err = error {
                 print("Error occured in sending data to the server\(err)")

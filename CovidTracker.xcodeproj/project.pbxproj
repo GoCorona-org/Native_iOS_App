@@ -23,6 +23,8 @@
 		56572E64245398DA00643BB8 /* CheckupSubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E63245398DA00643BB8 /* CheckupSubmitViewController.swift */; };
 		56572E662453D59500643BB8 /* TravelQuestionnaireSubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E652453D59500643BB8 /* TravelQuestionnaireSubmitViewController.swift */; };
 		56572E8A24573EB300643BB8 /* Medmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E8924573EB300643BB8 /* Medmap.swift */; };
+		56572E8E24586F7300643BB8 /* cities.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56572E8D24586F7200643BB8 /* cities.txt */; };
+		56572E90245875A400643BB8 /* TravelQuestionnaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E8F245875A400643BB8 /* TravelQuestionnaire.swift */; };
 		5666E45624404651003B1965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5666E45524404651003B1965 /* AppDelegate.swift */; };
 		5666E45824404651003B1965 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5666E45724404651003B1965 /* SceneDelegate.swift */; };
 		5666E45A24404651003B1965 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5666E45924404651003B1965 /* ViewController.swift */; };
@@ -91,6 +93,8 @@
 		56572E63245398DA00643BB8 /* CheckupSubmitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckupSubmitViewController.swift; sourceTree = "<group>"; };
 		56572E652453D59500643BB8 /* TravelQuestionnaireSubmitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelQuestionnaireSubmitViewController.swift; sourceTree = "<group>"; };
 		56572E8924573EB300643BB8 /* Medmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medmap.swift; sourceTree = "<group>"; };
+		56572E8D24586F7200643BB8 /* cities.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cities.txt; sourceTree = "<group>"; };
+		56572E8F245875A400643BB8 /* TravelQuestionnaire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelQuestionnaire.swift; sourceTree = "<group>"; };
 		5666E45224404651003B1965 /* CovidTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CovidTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5666E45524404651003B1965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5666E45724404651003B1965 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 		56572E5B244EE23300643BB8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				56572E8D24586F7200643BB8 /* cities.txt */,
 				56572E5C244EE24D00643BB8 /* countries.json */,
 			);
 			path = Assets;
@@ -314,6 +319,7 @@
 				5623942224406743009EF7B7 /* Checkbox.swift */,
 				56EA2BD3244583280044DEED /* LocationHistory.swift */,
 				56572E8924573EB300643BB8 /* Medmap.swift */,
+				56572E8F245875A400643BB8 /* TravelQuestionnaire.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -435,6 +441,7 @@
 				56EA2BC22444A7740044DEED /* FiraSans-ThinItalic.ttf in Resources */,
 				56EA2BB52444A7740044DEED /* FiraSans-Medium.ttf in Resources */,
 				56EA2BBF2444A7740044DEED /* FiraSans-LightItalic.ttf in Resources */,
+				56572E8E24586F7300643BB8 /* cities.txt in Resources */,
 				56EA2BBE2444A7740044DEED /* FiraSans-BoldItalic.ttf in Resources */,
 				56EA2BBC2444A7740044DEED /* FiraSans-ExtraLightItalic.ttf in Resources */,
 				56EA2BC12444A7740044DEED /* FiraSans-Thin.ttf in Resources */,
@@ -503,6 +510,7 @@
 				562394342440CE2E009EF7B7 /* CheckupViewController.swift in Sources */,
 				56572E64245398DA00643BB8 /* CheckupSubmitViewController.swift in Sources */,
 				56EA30B9244854950044DEED /* PatientSCSixViewController.swift in Sources */,
+				56572E90245875A400643BB8 /* TravelQuestionnaire.swift in Sources */,
 				596CB76A2455CCFC0051DFED /* CalenderCollectionView.swift in Sources */,
 				5666E45A24404651003B1965 /* ViewController.swift in Sources */,
 				56572E58244DCFCA00643BB8 /* IntersectionCalculatorTnCViewController.swift in Sources */,

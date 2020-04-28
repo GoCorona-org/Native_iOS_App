@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SearchTextField
 
 class TravelQuestionnaireSecondViewController: CrossCheckViewController, UITextFieldDelegate {
     
@@ -89,27 +90,31 @@ class TravelQuestionnaireSecondViewController: CrossCheckViewController, UITextF
         return view
     }()
     
-    let fromField: UITextField = {
-        let view = UITextField()
+    let fromField: SearchTextField = {
+        let view = SearchTextField()
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 30)
         view.layer.cornerRadius = 5.0
         view.attributedPlaceholder = NSAttributedString(string: "From", attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: 0x989898)])
         view.autocorrectionType = .yes
         view.backgroundColor = UIColor(rgb: 0xE9E9E9)
         view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
+        view.maxNumberOfResults = 4
+        view.maxResultsListHeight = 100
         view.leftViewMode = .always
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let toField: UITextField = {
-        let view = UITextField()
+    let toField: SearchTextField = {
+        let view = SearchTextField()
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 30)
         view.layer.cornerRadius = 5.0
         view.attributedPlaceholder = NSAttributedString(string: "To", attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: 0x989898)])
         view.autocorrectionType = .yes
         view.backgroundColor = UIColor(rgb: 0xE9E9E9)
         view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
+        view.maxNumberOfResults = 4
+        view.maxResultsListHeight = 100
         view.leftViewMode = .always
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -129,6 +134,12 @@ class TravelQuestionnaireSecondViewController: CrossCheckViewController, UITextF
         progressView.setProgress(0.75, animated: true)
         fromField.delegate = self
         toField.delegate = self
+        
+        let cities = readCities()
+        fromField.filterStrings(cities)
+        toField.filterStrings(cities)
+        
+        showHideControls(isHide: true)
     }
     
     override func addIntoBodyView() {
@@ -197,8 +208,24 @@ class TravelQuestionnaireSecondViewController: CrossCheckViewController, UITextF
     
     override func nextButtonIsTapped(sender: UIButton) {
         print("Next button is tapped.")
+        collectData()
         let vc = TravelQuestionnaireSubmitViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func collectData() {
+        if let fromAirport = fromField.text, let toAirport = toField.text {
+            travelData.domesticAirportFrom = fromAirport
+            travelData.domesticAirportTo = toAirport
+        } else {
+            print("From and To airport cities not found.")
+        }
+    }
+    
+    private func showHideControls(isHide: Bool) {
+        fromField.isHidden = isHide
+        toField.isHidden = isHide
+        secondSectionHeading.isHidden = isHide
     }
     
 }
@@ -222,5 +249,12 @@ extension TravelQuestionnaireSecondViewController: UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.tag == 0, options[indexPath.item] == "Yes" {
+            showHideControls(isHide: false)
+            travelData.domesticFlight = true
+        } else if tableView.tag == 0, options[indexPath.item] == "No" {
+            showHideControls(isHide: true)
+            travelData.domesticFlight = false
+        }
     }
 }

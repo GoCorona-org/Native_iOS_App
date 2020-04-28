@@ -97,6 +97,7 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController, UITextFi
         view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
         view.leftViewMode = .always
         view.font = UIFont(name: "HelveticaNeue", size: 16.0)
+        view.filterStrings(countries)
         view.maxNumberOfResults = 5
         view.maxResultsListHeight = 150
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -144,9 +145,6 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController, UITextFi
         introductionLabel.text = "Travel"
         backButton.isHidden = false
         nextButton.isHidden = false
-        
-        let countries = localCountries()
-        countryField.filterStrings(countries)
         
         countryListTableView.isHidden = true
         
@@ -235,8 +233,15 @@ class TravelQuestionnaireFirstViewController: CrossCheckViewController, UITextFi
     
     override func nextButtonIsTapped(sender: UIButton) {
         print("Next button is tapped.")
+        collectData()
         let vc = TravelQuestionnaireSecondViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func collectData() {
+        if travelData.internationalMode && selectedCountryList.count > 0{
+            travelData.countryTravelled = selectedCountryList[0]
+        }
     }
     
     private func showHideControls(isHide: Bool) {
@@ -303,8 +308,10 @@ extension TravelQuestionnaireFirstViewController: UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.tag == 0, options[indexPath.item] == "Yes" {
             showHideControls(isHide: false)
+            travelData.internationalMode = true
         } else if tableView.tag == 0, options[indexPath.item] == "No" {
             showHideControls(isHide: true)
+            travelData.internationalMode = false
             selectedCountryList.removeAll()
             countryListTableView.reloadData()
             countryListTableView.isHidden = true

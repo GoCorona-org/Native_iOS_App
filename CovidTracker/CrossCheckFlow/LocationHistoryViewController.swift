@@ -325,9 +325,7 @@ class LocationHistoryViewController: CrossCheckViewController, SFSafariViewContr
                             locationHistories.append(LocationHistoryServer(timeslot: finalTime, lat: String(location.latitudeE7), long: String(location.longitudeE7), status: "unknown"))
                         }
                     }
-                    let id = UUID().uuidString
-                    print(id)
-                    locationHistoryDataForServer = LocationHistoryForServer(id: id, locationHistory: locationHistories)
+                    locationHistoryDataForServer = LocationHistoryForServer(id: intersectionUUID, locationHistory: locationHistories)
                     isDataLoaded = true
                     self.showPopUp(title: "Data Preparation", message: "Data has been prepared successfully for the upload.")
                     stopProgressView()
