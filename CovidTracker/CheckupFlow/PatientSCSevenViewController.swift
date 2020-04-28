@@ -404,7 +404,7 @@ class PatientSCSevenViewController: CheckupViewController {
         return view
     }()
     
-    let conditionLevel4Button: UIButton = {
+    /*let conditionLevel4Button: UIButton = {
         let view = UIButton()
         view.frame = CGRect(x: 0, y: 0, width: 80, height: 40)
         view.backgroundColor = UIColor(rgb: 0xE4E4E4)
@@ -412,7 +412,7 @@ class PatientSCSevenViewController: CheckupViewController {
         view.addTarget(self, action: #selector(conditionLevelPressed(sender:)), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-    }()
+    }()*/
     
     let conditionLevel5Button: UIButton = {
         let view = UIButton()
@@ -475,7 +475,7 @@ class PatientSCSevenViewController: CheckupViewController {
         return view
     }()
     
-    let worsenedMildlyLabel: UILabel = {
+    /*let worsenedMildlyLabel: UILabel = {
         let view = UILabel()
         view.frame = CGRect(x: 0, y: 0, width: 60, height: 30)
         view.text = "Worsened Mildly"
@@ -486,7 +486,7 @@ class PatientSCSevenViewController: CheckupViewController {
         view.textColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-    }()
+    }()*/
     
     let worsenedConsiderablyLabel: UILabel = {
         let view = UILabel()
@@ -555,14 +555,14 @@ class PatientSCSevenViewController: CheckupViewController {
         scrollView.addSubview(conditionLevel1Button)
         scrollView.addSubview(conditionLevel2Button)
         scrollView.addSubview(conditionLevel3Button)
-        scrollView.addSubview(conditionLevel4Button)
+        //scrollView.addSubview(conditionLevel4Button)
         scrollView.addSubview(conditionLevel5Button)
         scrollView.addSubview(extensionLeftView)
         scrollView.addSubview(extensionRightView)
         scrollView.addSubview(improvedLabel)
         scrollView.addSubview(noChangeLabel)
         scrollView.addSubview(worsenedLabel)
-        scrollView.addSubview(worsenedMildlyLabel)
+        //scrollView.addSubview(worsenedMildlyLabel)
         scrollView.addSubview(worsenedConsiderablyLabel)
         scrollView.addSubview(selectedConditionImageView)
         
@@ -572,7 +572,7 @@ class PatientSCSevenViewController: CheckupViewController {
     override func placeBodyViews() {
         let dividerSpace = (UIScreen.main.bounds.width  - (40*6) - (35*2))  /  5
         let feverButtonWidth = (UIScreen.main.bounds.width - (35*2) - (10*3)) / 4
-        let conditionLevelWidth = (UIScreen.main.bounds.width - (35*2) - (2*4)) / 5
+        let conditionLevelWidth = (UIScreen.main.bounds.width - (35*2) - (2*3)) / 4
         
         scrollView.topAnchor.constraint(equalTo: bodyBaseView.topAnchor).isActive = true
         scrollView.widthAnchor.constraint(equalTo: bodyBaseView.widthAnchor).isActive = true
@@ -715,13 +715,13 @@ class PatientSCSevenViewController: CheckupViewController {
         conditionLevel3Button.widthAnchor.constraint(equalToConstant: conditionLevelWidth).isActive = true
         conditionLevel3Button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        conditionLevel4Button.topAnchor.constraint(equalTo: fifthSectionHeading.bottomAnchor, constant: 5).isActive = true
+        /*conditionLevel4Button.topAnchor.constraint(equalTo: fifthSectionHeading.bottomAnchor, constant: 5).isActive = true
         conditionLevel4Button.leadingAnchor.constraint(equalTo: conditionLevel3Button.trailingAnchor, constant: 2).isActive = true
         conditionLevel4Button.widthAnchor.constraint(equalToConstant: conditionLevelWidth).isActive = true
-        conditionLevel4Button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        conditionLevel4Button.heightAnchor.constraint(equalToConstant: 40).isActive = true*/
         
         conditionLevel5Button.topAnchor.constraint(equalTo: fifthSectionHeading.bottomAnchor, constant: 5).isActive = true
-        conditionLevel5Button.leadingAnchor.constraint(equalTo: conditionLevel4Button.trailingAnchor, constant: 2).isActive = true
+        conditionLevel5Button.leadingAnchor.constraint(equalTo: conditionLevel3Button.trailingAnchor, constant: 2).isActive = true
         conditionLevel5Button.widthAnchor.constraint(equalToConstant: conditionLevelWidth).isActive = true
         conditionLevel5Button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
@@ -750,10 +750,10 @@ class PatientSCSevenViewController: CheckupViewController {
         worsenedLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
         worsenedLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-        worsenedMildlyLabel.topAnchor.constraint(equalTo: extensionLeftView.bottomAnchor, constant: 3).isActive = true
+        /*worsenedMildlyLabel.topAnchor.constraint(equalTo: extensionLeftView.bottomAnchor, constant: 3).isActive = true
         worsenedMildlyLabel.centerXAnchor.constraint(equalTo: conditionLevel4Button.centerXAnchor).isActive = true
         worsenedMildlyLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        worsenedMildlyLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        worsenedMildlyLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true*/
         
         worsenedConsiderablyLabel.topAnchor.constraint(equalTo: extensionLeftView.bottomAnchor, constant: 3).isActive = true
         worsenedConsiderablyLabel.centerXAnchor.constraint(equalTo: conditionLevel5Button.centerXAnchor).isActive = true
@@ -773,14 +773,23 @@ class PatientSCSevenViewController: CheckupViewController {
     
     @objc func feverButtonPressed(sender: UIButton) {
         print("Fever button is pressed for the \(sender.tag) week.")
+        clearFeverButton()
+        sender.backgroundColor = UIColor(rgb: 0xE03D51)
+        sender.setTitleColor(.white, for: .normal)
     }
     
     @objc func coughButtonPressed(sender: UIButton) {
         print("Cough button is pressed for the \(sender.tag) level.")
+        clearCoughButton()
+        sender.backgroundColor = UIColor(rgb: 0xE03D51)
+        sender.setTitleColor(.white, for: .normal)
     }
     
     @objc func headacheButtonPressed(sender: UIButton) {
         print("Headache button is pressed for the \(sender.tag) level.")
+        clearHeadacheButton()
+        sender.backgroundColor = UIColor(rgb: 0xE03D51)
+        sender.setTitleColor(.white, for: .normal)
     }
     
     @objc func conditionLevelPressed(sender: UIButton) {
@@ -789,28 +798,73 @@ class PatientSCSevenViewController: CheckupViewController {
         if sender.tag == 1 {
             selectedConditionImageView.center = conditionLevel1Button.center
             selectedConditionImageView.center.y = conditionLevel1Button.frame.maxY + 10
+            medicalData.symptomsImprovement = 0
         } else if sender.tag == 2 {
             selectedConditionImageView.center = conditionLevel2Button.center
             selectedConditionImageView.center.y = conditionLevel2Button.frame.maxY + 10
+            medicalData.symptomsImprovement = 1
         } else if sender.tag == 3 {
             selectedConditionImageView.center = conditionLevel3Button.center
             selectedConditionImageView.center.y = conditionLevel3Button.frame.maxY + 10
-        } else if sender.tag == 4 {
+            medicalData.symptomsImprovement = 2
+        } /*else if sender.tag == 4 {
             selectedConditionImageView.center = conditionLevel4Button.center
             selectedConditionImageView.center.y = conditionLevel4Button.frame.maxY + 10
-        } else if sender.tag == 5 {
+        }*/ else if sender.tag == 5 {
             selectedConditionImageView.center = conditionLevel5Button.center
             selectedConditionImageView.center.y = conditionLevel5Button.frame.maxY + 10
+            medicalData.symptomsImprovement = 3
         }
         sender.backgroundColor = UIColor(rgb: 0xA9E7CB)
         print("Condition button is pressed with the \(sender.tag) level.")
+    }
+    
+    private func clearFeverButton() {
+        fever1WeekButton.backgroundColor = .white
+        fever2WeekButton.backgroundColor = .white
+        fever3WeekButton.backgroundColor = .white
+        feverLessThanWeekButton.backgroundColor = .white
+        fever1WeekButton.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        fever2WeekButton.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        fever3WeekButton.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        feverLessThanWeekButton.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+    }
+    
+    private func clearCoughButton() {
+        coughLevel1Button.backgroundColor = .white
+        coughLevel2Button.backgroundColor = .white
+        coughLevel3Button.backgroundColor = .white
+        coughLevel4Button.backgroundColor = .white
+        coughLevel5Button.backgroundColor = .white
+        coughLevelMoreButton.backgroundColor = .white
+        coughLevel1Button.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        coughLevel2Button.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        coughLevel3Button.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        coughLevel4Button.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        coughLevel5Button.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        coughLevelMoreButton.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+    }
+    
+    private func clearHeadacheButton() {
+        headacheLevel1Button.backgroundColor = .white
+        headacheLevel2Button.backgroundColor = .white
+        headacheLevel3Button.backgroundColor = .white
+        headacheLevel4Button.backgroundColor = .white
+        headacheLevel5Button.backgroundColor = .white
+        headacheLevelMoreButton.backgroundColor = .white
+        headacheLevel1Button.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        headacheLevel2Button.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        headacheLevel3Button.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        headacheLevel4Button.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        headacheLevel5Button.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
+        headacheLevelMoreButton.setTitleColor(UIColor(rgb: 0x707070), for: .normal)
     }
     
     private func clearSelectedConditionButton() {
         conditionLevel1Button.backgroundColor = UIColor(rgb: 0xE4E4E4)
         conditionLevel2Button.backgroundColor = UIColor(rgb: 0xE4E4E4)
         conditionLevel3Button.backgroundColor = UIColor(rgb: 0xE4E4E4)
-        conditionLevel4Button.backgroundColor = UIColor(rgb: 0xE4E4E4)
+        //conditionLevel4Button.backgroundColor = UIColor(rgb: 0xE4E4E4)
         conditionLevel5Button.backgroundColor = UIColor(rgb: 0xE4E4E4)
     }
 }

@@ -235,6 +235,24 @@ extension PatientSCFiveViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        ///print(healthHistorySymptoms[indexPath.item])
+        if tableView.tag == 0 {
+            if options[indexPath.item] == "Yes" {
+                medicalData.soreThroat = true
+            } else {
+                medicalData.soreThroat = false
+            }
+        } else if tableView.tag == 1 {
+            if options[indexPath.item] == "Yes" {
+                medicalData.nasalCongestion = true
+            } else {
+                medicalData.nasalCongestion = false
+            }
+        } else if tableView.tag == 2 {
+            if options[indexPath.item] == "Yes" {
+                medicalData.lossOfTasteAndSmell = true
+            } else {
+                medicalData.lossOfTasteAndSmell = false
+            }
+        }
     }
 }

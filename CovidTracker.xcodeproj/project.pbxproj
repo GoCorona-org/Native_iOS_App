@@ -22,6 +22,7 @@
 		56572E62245362A900643BB8 /* PatientSCSevenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E61245362A900643BB8 /* PatientSCSevenViewController.swift */; };
 		56572E64245398DA00643BB8 /* CheckupSubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E63245398DA00643BB8 /* CheckupSubmitViewController.swift */; };
 		56572E662453D59500643BB8 /* TravelQuestionnaireSubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E652453D59500643BB8 /* TravelQuestionnaireSubmitViewController.swift */; };
+		56572E8A24573EB300643BB8 /* Medmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E8924573EB300643BB8 /* Medmap.swift */; };
 		5666E45624404651003B1965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5666E45524404651003B1965 /* AppDelegate.swift */; };
 		5666E45824404651003B1965 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5666E45724404651003B1965 /* SceneDelegate.swift */; };
 		5666E45A24404651003B1965 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5666E45924404651003B1965 /* ViewController.swift */; };
@@ -89,6 +90,7 @@
 		56572E61245362A900643BB8 /* PatientSCSevenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSCSevenViewController.swift; sourceTree = "<group>"; };
 		56572E63245398DA00643BB8 /* CheckupSubmitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckupSubmitViewController.swift; sourceTree = "<group>"; };
 		56572E652453D59500643BB8 /* TravelQuestionnaireSubmitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelQuestionnaireSubmitViewController.swift; sourceTree = "<group>"; };
+		56572E8924573EB300643BB8 /* Medmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medmap.swift; sourceTree = "<group>"; };
 		5666E45224404651003B1965 /* CovidTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CovidTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5666E45524404651003B1965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5666E45724404651003B1965 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				5666E46B2440508C003B1965 /* Common.swift */,
 				5623942224406743009EF7B7 /* Checkbox.swift */,
 				56EA2BD3244583280044DEED /* LocationHistory.swift */,
+				56572E8924573EB300643BB8 /* Medmap.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				56EA2BD4244583280044DEED /* LocationHistory.swift in Sources */,
 				5957F21C2456E213002FD712 /* CalendarViewCell.swift in Sources */,
 				5957F21F24570093002FD712 /* CalenderSeparator.swift in Sources */,
+				56572E8A24573EB300643BB8 /* Medmap.swift in Sources */,
 				5666E46E2440524A003B1965 /* SignUpDetailViewController.swift in Sources */,
 				5666E45624404651003B1965 /* AppDelegate.swift in Sources */,
 				562394322440CB51009EF7B7 /* TabBarController.swift in Sources */,

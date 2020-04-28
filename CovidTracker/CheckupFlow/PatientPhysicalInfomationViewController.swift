@@ -210,6 +210,7 @@ class PatientPhysicalInformationViewController: CheckupViewController {
     
     override func nextButtonIsTapped(sender: UIButton) {
         print("Patient physical info next button is tapped.")
+        collectData()
         let nextVC = PatientSymptomCheckViewController()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
@@ -224,5 +225,23 @@ class PatientPhysicalInformationViewController: CheckupViewController {
     
     @objc func weightSliderIsMoved(slider: UISlider) {
         weightLabel.text =  String(Int(slider.value * 100)) + " Kg"
+    }
+    
+    private func collectData() {
+        if let age = ageLabel.text, let ageInt = Int(age) {
+            medicalData.age = ageInt
+        } else {
+            print("FATAL ERROR: Age of the user not found.")
+        }
+        if let height = heightLabel.text, let heightInt = Int(height.split(separator: " ")[0]) {
+            medicalData.height = heightInt
+        } else {
+            print("FATAL ERROR: Height of the user not found.")
+        }
+        if let weight = weightLabel.text, let weightInt = Int(weight.split(separator: " ")[0]) {
+            medicalData.weight = weightInt
+        } else {
+            print("FATAL ERROR: Weight of the user not found.")
+        }
     }
 }

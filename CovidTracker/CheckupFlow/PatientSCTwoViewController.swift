@@ -474,6 +474,13 @@ extension PatientSCTwoViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        ///print(healthHistorySymptoms[indexPath.item])
+        if tableView.tag == 0 {
+            if options[indexPath.item] == "Yes" {
+                medicalData.fever = Int.random(in: 1...4)
+            } else {
+                medicalData.fever = 0
+            }
+            print(medicalData.fever ?? 10)
+        }
     }
 }

@@ -120,6 +120,7 @@ class PatientSCSixViewController: CheckupViewController {
     let thirdTableCellId = "symptomCellID"
     
     let symptomOptions = ["Headache", "Chills", "Nausea", "Vomiting or vomit like feeling", "Diarrhea", "Conjunctival congestion"]
+    private var selectedSymptoms: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -212,8 +213,25 @@ class PatientSCSixViewController: CheckupViewController {
     
     override func nextButtonIsTapped(sender: UIButton) {
         print("Next button is tapped in PatientSCThreeVC.")
+        collectData()
         let vc = PatientSCSevenViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func collectData() {
+        for symptom in selectedSymptoms {
+            if symptom.contains("Headache") {
+                medicalData.headache  = true
+            } else if  symptom.contains("Chills") {
+                medicalData.chills = true
+            } else if symptom.contains("Nausea") ||  symptom.contains("vomit") {
+                medicalData.nauseaOrVomiting = true
+            } else if symptom.contains("Diarrhea") {
+                medicalData.diarrhea = true
+            } else if symptom.contains("congestion") {
+                medicalData.conjunctivalCongestion  = true
+            }
+        }
     }
 }
 extension PatientSCSixViewController: UITableViewDelegate, UITableViewDataSource {
@@ -249,6 +267,22 @@ extension PatientSCSixViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        ///print(healthHistorySymptoms[indexPath.item])
+        if tableView.tag == 0 && bodyPainOptions[indexPath.item].contains("Joint pain") {
+            medicalData.jointPain = true
+        } else if tableView.tag == 1 {
+            if options[indexPath.item] == "Yes" {
+                medicalData.fatigue = true
+            } else {
+                medicalData.fatigue = false
+            }
+        } else if tableView.tag == 2 {
+            selectedSymptoms.append(symptomOptions[indexPath.item])
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if tableView.tag == 2  && selectedSymptoms.contains(symptomOptions[indexPath.item]) {
+            selectedSymptoms.removeAll(where: {$0 == symptomOptions[indexPath.item]})
+        }
     }
 }

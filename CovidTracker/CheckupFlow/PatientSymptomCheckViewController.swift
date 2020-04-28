@@ -120,6 +120,9 @@ class PatientSymptomCheckViewController: CheckupViewController {
     
     let healthHistorySymptoms = ["Asthma", "High BP", "Kidney disease", "Heart disease", "Lung disease", "Stroke", "Diabetes", "No, I do not have any of the above health issues"]
     
+    private var selectedHealthCondition = ""
+    private var selectedTransplantOrHIV = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -211,8 +214,27 @@ class PatientSymptomCheckViewController: CheckupViewController {
     
     override func nextButtonIsTapped(sender: UIButton) {
         print("Symptom check page's next button is tapped.")
+        collectData()
         let vc = PatientSCTwoViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func collectData() {
+        medicalData.transplant = selectedTransplantOrHIV
+        medicalData.hiv = selectedTransplantOrHIV
+        if selectedHealthCondition.contains("Diabetes") {
+            medicalData.diabetes = true
+        } else if selectedHealthCondition.contains("Kidney") {
+            medicalData.kidney = true
+        } else if selectedHealthCondition.contains("Heart") {
+            medicalData.heart = true
+        } else if selectedHealthCondition.contains("Lung") {
+            medicalData.lungs = true
+        } else if selectedHealthCondition.contains("High BP") {
+            medicalData.hypertension = true
+        } else if selectedHealthCondition.contains("Stroke") {
+            medicalData.stroke = true
+        }
     }
 }
 extension PatientSymptomCheckViewController: UITableViewDelegate, UITableViewDataSource {
@@ -246,16 +268,14 @@ extension PatientSymptomCheckViewController: UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(healthHistorySymptoms[indexPath.item])
+        if tableView.tag == 0 {
+            selectedHealthCondition = healthHistorySymptoms[indexPath.item]
+        } else if tableView.tag == 2 {
+            if options[indexPath.item] == "Yes" {
+                selectedTransplantOrHIV = true
+            } else {
+                selectedTransplantOrHIV = false
+            }
+        }
     }
-    
-    /*func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.dequeueReusableCell(withIdentifier: firstTableCellId, for: indexPath) as! SymptomTableViewCell
-        cell.contentView.backgroundColor = UIColor(rgb: 0x32C7F2)
-        //selectedCategory = categories?[indexPath.item].id
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let cell = tableView.dequeueReusableCell(withIdentifier: firstTableCellId, for: indexPath) as! SymptomTableViewCell
-        cell.contentView.backgroundColor = UIColor(rgb: 0x303644)
-    }*/
 }

@@ -192,10 +192,7 @@ extension PatientSCFourViewController: UITableViewDelegate, UITableViewDataSourc
         } else if tableView.tag == 1, let cell = tableView.dequeueReusableCell(withIdentifier: secondTableCellId, for: indexPath) as? OptionsTableViewCell {
             cell.textLabel?.text = breathlessnessDescriptions[indexPath.item]
             return cell
-        }/* else if tableView.tag == 2, let cell = tableView.dequeueReusableCell(withIdentifier: thirdTableCellId, for: indexPath) as? OptionsTableViewCell {
-            cell.textLabel?.text = options[indexPath.item]
-            return cell
-        }*/ else {
+        } else {
             return UITableViewCell()
         }
     }
@@ -205,6 +202,12 @@ extension PatientSCFourViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        ///print(healthHistorySymptoms[indexPath.item])
+        if tableView.tag == 0 {
+            if options[indexPath.item] ==  "Yes" {
+                medicalData.breathlessness = true
+            } else {
+                medicalData.breathlessness = false
+            }
+        }
     }
 }

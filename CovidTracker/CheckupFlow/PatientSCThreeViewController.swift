@@ -194,10 +194,7 @@ extension PatientSCThreeViewController: UITableViewDelegate, UITableViewDataSour
         } else if tableView.tag == 1, let cell = tableView.dequeueReusableCell(withIdentifier: secondTableCellId, for: indexPath) as? OptionsTableViewCell {
             cell.textLabel?.text = coughDescriptions[indexPath.item]
             return cell
-        }/* else if tableView.tag == 2, let cell = tableView.dequeueReusableCell(withIdentifier: thirdTableCellId, for: indexPath) as? OptionsTableViewCell {
-            cell.textLabel?.text = options[indexPath.item]
-            return cell
-        }*/ else {
+        } else {
             return UITableViewCell()
         }
     }
@@ -207,6 +204,18 @@ extension PatientSCThreeViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        ///print(healthHistorySymptoms[indexPath.item])
+        if tableView.tag == 0 && firstOptions[indexPath.item] == "No" {
+            medicalData.cough = 0
+        } else if tableView.tag == 1 {
+            if coughDescriptions[indexPath.item].contains("Dry Cough") {
+                medicalData.cough = 1
+            } else if coughDescriptions[indexPath.item].contains("sputum") {
+                medicalData.cough = 2
+            } else if coughDescriptions[indexPath.item].contains("chest pain") {
+                medicalData.cough = 3
+            } else if coughDescriptions[indexPath.item].contains("abdominal pain") {
+                medicalData.cough = 4
+            }
+        }
     }
 }
