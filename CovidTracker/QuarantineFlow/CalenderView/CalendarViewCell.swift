@@ -26,7 +26,7 @@ import UIKit
         label.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         label.textAlignment = .center
         label.textColor = UIColor(rgb: 0x818181)
-        label.font = UIFont(name: "HelveticaNeue", size: 11)
+        label.font = UIFont(name: "FiraSans-Light", size: 11)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -82,7 +82,7 @@ import UIKit
         label.text = "1"
         label.textAlignment = .center
         label.textColor = UIColor(rgb: 0x818181)
-        label.font = UIFont(name: "HelveticaNeue", size: 15)
+        label.font = UIFont(name: "FiraSans-Regular", size: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

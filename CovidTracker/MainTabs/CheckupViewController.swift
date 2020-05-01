@@ -190,8 +190,8 @@ class CheckupViewController: UIViewController {
         
         backButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor).isActive = true
         backButton.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 20).isActive = true
-        nextButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        nextButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        backButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        backButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         bodyBaseView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
         bodyBaseView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true

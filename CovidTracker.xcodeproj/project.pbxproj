@@ -71,9 +71,12 @@
 		56EA30B524484F1D0044DEED /* PatientSCFourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA30B424484F1D0044DEED /* PatientSCFourViewController.swift */; };
 		56EA30B7244850FC0044DEED /* PatientSCFiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA30B6244850FC0044DEED /* PatientSCFiveViewController.swift */; };
 		56EA30B9244854950044DEED /* PatientSCSixViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA30B8244854950044DEED /* PatientSCSixViewController.swift */; };
+		59091088245C3846000E694B /* ShoppingDaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59091087245C3846000E694B /* ShoppingDaysViewController.swift */; };
 		5957F21C2456E213002FD712 /* CalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5957F21A2456E213002FD712 /* CalendarViewCell.swift */; };
 		5957F21F24570093002FD712 /* CalenderSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5957F21E24570093002FD712 /* CalenderSeparator.swift */; };
 		596CB76A2455CCFC0051DFED /* CalenderCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596CB7692455CCFC0051DFED /* CalenderCollectionView.swift */; };
+		59DBB9B3245A095700558282 /* SelfQuarantineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DBB9B2245A095700558282 /* SelfQuarantineViewController.swift */; };
+		59DBB9B7245A15C800558282 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DBB9B6245A15C800558282 /* DatePickerDialog.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,9 +146,12 @@
 		56EA30B424484F1D0044DEED /* PatientSCFourViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSCFourViewController.swift; sourceTree = "<group>"; };
 		56EA30B6244850FC0044DEED /* PatientSCFiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSCFiveViewController.swift; sourceTree = "<group>"; };
 		56EA30B8244854950044DEED /* PatientSCSixViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSCSixViewController.swift; sourceTree = "<group>"; };
+		59091087245C3846000E694B /* ShoppingDaysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingDaysViewController.swift; sourceTree = "<group>"; };
 		5957F21A2456E213002FD712 /* CalendarViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewCell.swift; sourceTree = "<group>"; };
 		5957F21E24570093002FD712 /* CalenderSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderSeparator.swift; sourceTree = "<group>"; };
 		596CB7692455CCFC0051DFED /* CalenderCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderCollectionView.swift; sourceTree = "<group>"; };
+		59DBB9B2245A095700558282 /* SelfQuarantineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfQuarantineViewController.swift; sourceTree = "<group>"; };
+		59DBB9B6245A15C800558282 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		89227C5EFFDD1A1478A10E3A /* libPods-CovidTracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CovidTracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E507CAD094DA4602D251233 /* Pods-CovidTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CovidTracker.release.xcconfig"; path = "Target Support Files/Pods-CovidTracker/Pods-CovidTracker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -346,8 +352,19 @@
 			isa = PBXGroup;
 			children = (
 				5957F1CA24560223002FD712 /* CalenderView */,
+				59DBB9B5245A157E00558282 /* DatePicker */,
+				59DBB9B2245A095700558282 /* SelfQuarantineViewController.swift */,
+				59091087245C3846000E694B /* ShoppingDaysViewController.swift */,
 			);
 			path = QuarantineFlow;
+			sourceTree = "<group>";
+		};
+		59DBB9B5245A157E00558282 /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				59DBB9B6245A15C800558282 /* DatePickerDialog.swift */,
+			);
+			path = DatePicker;
 			sourceTree = "<group>";
 		};
 		60637DB05681BFD0B87149FC /* Frameworks */ = {
@@ -514,12 +531,14 @@
 				596CB76A2455CCFC0051DFED /* CalenderCollectionView.swift in Sources */,
 				5666E45A24404651003B1965 /* ViewController.swift in Sources */,
 				56572E58244DCFCA00643BB8 /* IntersectionCalculatorTnCViewController.swift in Sources */,
+				59091088245C3846000E694B /* ShoppingDaysViewController.swift in Sources */,
 				56E194202440F27200EB08D0 /* CrossCheckViewController.swift in Sources */,
 				567D58622441E6BA00B0BE38 /* PatientIdentificationViewController.swift in Sources */,
 				56EA2BD4244583280044DEED /* LocationHistory.swift in Sources */,
 				5957F21C2456E213002FD712 /* CalendarViewCell.swift in Sources */,
 				5957F21F24570093002FD712 /* CalenderSeparator.swift in Sources */,
 				56572E8A24573EB300643BB8 /* Medmap.swift in Sources */,
+				59DBB9B3245A095700558282 /* SelfQuarantineViewController.swift in Sources */,
 				5666E46E2440524A003B1965 /* SignUpDetailViewController.swift in Sources */,
 				5666E45624404651003B1965 /* AppDelegate.swift in Sources */,
 				562394322440CB51009EF7B7 /* TabBarController.swift in Sources */,
@@ -530,6 +549,7 @@
 				56EA30B524484F1D0044DEED /* PatientSCFourViewController.swift in Sources */,
 				567D586B2443EDF200B0BE38 /* Service.swift in Sources */,
 				56EA2BD12444CA920044DEED /* DocumentCell.swift in Sources */,
+				59DBB9B7245A15C800558282 /* DatePickerDialog.swift in Sources */,
 				56EA2BCF2444CA6D0044DEED /* Document.swift in Sources */,
 				5666E46A244046A9003B1965 /* SignUpViewController.swift in Sources */,
 				56EA2BCD2444CA3D0044DEED /* DocumentDelegate.swift in Sources */,
@@ -693,7 +713,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = CovidTracker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -715,7 +735,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = CovidTracker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

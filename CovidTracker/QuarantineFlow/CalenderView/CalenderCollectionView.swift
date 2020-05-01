@@ -80,7 +80,7 @@ extension QuarantineViewController: UICollectionViewDataSource {
     
     /// Returns the year that should be displayed at the specified index path
     private func year(at indexPath: IndexPath) -> Int {
-        let shiftedDate = calendar.date(byAdding: .month, value: indexPath.section, to: Date())!
+        let shiftedDate = calendar.date(byAdding: .month, value: indexPath.section - numberOfPastMonths, to: Date())!
         let year = calendar.component(.year, from: shiftedDate)
         return year
     }

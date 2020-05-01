@@ -28,6 +28,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let fontNames = UIFont.fontNames(forFamilyName: familyName)
             print(familyName, fontNames)
         })*/
+        let appDel = (UIApplication.shared.delegate as! AppDelegate)
+        appDel.window = window
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
