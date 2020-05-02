@@ -195,7 +195,6 @@ class Service: NSObject {
             }
             
             // parse the result as JSON, since that's what the API provides
-            // parse the result as JSON, since that's what the API provides
             do {
                 let receivedData = try JSONDecoder().decode(MedicalResult.self, from: responseData)
                 print(receivedData)

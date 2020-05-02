@@ -77,12 +77,22 @@ class CheckupSubmitViewController: CheckupViewController {
                 print("Error occured in sending data to the server\(err)")
             } else if let res = result  {
                 print("Data was sent successfully to the server with the result string as \(res)")
-                let uiAlertController = UIAlertController(title: "Submitted", message: "Your questionnaire data has been submitted successfully.", preferredStyle: .alert)
-                let action = UIAlertAction(title: "OK", style: .default, handler: {_ in
-                    self.navigationController?.popToRootViewController(animated: true)
+                Service.shared.getMedicalResult(completion: {(medicalResult, medicalError) in
+                    if let medErr = medicalError {
+                        print("Error occured in getting the medical score. \(medErr)")
+                    } else if let mediResult = medicalResult {
+                        print("Successfully received the medical result from the server.")
+                        let uiAlertController = UIAlertController(title: "Submitted", message: "Your questionnaire data has been submitted successfully.", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "OK", style: .default, handler: {_ in
+                            let vc = MedicalScoreViewController()
+                            vc.score = CGFloat((mediResult.score as NSString).floatValue)
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        })
+                        uiAlertController.addAction(action)
+                        self.navigationController?.present(uiAlertController, animated: true, completion: nil)
+                    }
                 })
-                uiAlertController.addAction(action)
-                self.navigationController?.present(uiAlertController, animated: true, completion: nil)
+                
             }
         })
     }

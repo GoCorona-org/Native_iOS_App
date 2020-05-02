@@ -221,7 +221,10 @@ class TravelQuestionnaireSubmitViewController: CrossCheckViewController, UITextF
                         print("Error occured in getting the medical score. \(medErr)")
                     } else if let mediResult = medicalResult {
                         print("Successfully received the medical result from the server.")
-                        self.showPopup(score: mediResult.score)
+                        //self.showPopup(score: mediResult.score)
+                        let vc = MedicalScoreViewController()
+                        vc.score = CGFloat((mediResult.score as NSString).floatValue)
+                        self.navigationController?.pushViewController(vc, animated: true)
                     }
                 })
                 

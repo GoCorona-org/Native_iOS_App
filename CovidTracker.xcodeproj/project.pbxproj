@@ -25,6 +25,7 @@
 		56572E8A24573EB300643BB8 /* Medmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E8924573EB300643BB8 /* Medmap.swift */; };
 		56572E8E24586F7300643BB8 /* cities.txt in Resources */ = {isa = PBXBuildFile; fileRef = 56572E8D24586F7200643BB8 /* cities.txt */; };
 		56572E90245875A400643BB8 /* TravelQuestionnaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E8F245875A400643BB8 /* TravelQuestionnaire.swift */; };
+		56572E922459B00A00643BB8 /* MedicalScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56572E912459B00A00643BB8 /* MedicalScoreViewController.swift */; };
 		5666E45624404651003B1965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5666E45524404651003B1965 /* AppDelegate.swift */; };
 		5666E45824404651003B1965 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5666E45724404651003B1965 /* SceneDelegate.swift */; };
 		5666E45A24404651003B1965 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5666E45924404651003B1965 /* ViewController.swift */; };
@@ -98,6 +99,7 @@
 		56572E8924573EB300643BB8 /* Medmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medmap.swift; sourceTree = "<group>"; };
 		56572E8D24586F7200643BB8 /* cities.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cities.txt; sourceTree = "<group>"; };
 		56572E8F245875A400643BB8 /* TravelQuestionnaire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelQuestionnaire.swift; sourceTree = "<group>"; };
+		56572E912459B00A00643BB8 /* MedicalScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalScoreViewController.swift; sourceTree = "<group>"; };
 		5666E45224404651003B1965 /* CovidTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CovidTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5666E45524404651003B1965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5666E45724404651003B1965 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				56572E59244DD6E900643BB8 /* TravelQuestionnaireFirstViewController.swift */,
 				56572E5E244F38A800643BB8 /* TravelQuestionnaireSecondViewController.swift */,
 				56572E652453D59500643BB8 /* TravelQuestionnaireSubmitViewController.swift */,
+				56572E912459B00A00643BB8 /* MedicalScoreViewController.swift */,
 			);
 			path = CrossCheckFlow;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				56EA30B9244854950044DEED /* PatientSCSixViewController.swift in Sources */,
 				56572E90245875A400643BB8 /* TravelQuestionnaire.swift in Sources */,
 				596CB76A2455CCFC0051DFED /* CalenderCollectionView.swift in Sources */,
+				56572E922459B00A00643BB8 /* MedicalScoreViewController.swift in Sources */,
 				5666E45A24404651003B1965 /* ViewController.swift in Sources */,
 				56572E58244DCFCA00643BB8 /* IntersectionCalculatorTnCViewController.swift in Sources */,
 				59091088245C3846000E694B /* ShoppingDaysViewController.swift in Sources */,
