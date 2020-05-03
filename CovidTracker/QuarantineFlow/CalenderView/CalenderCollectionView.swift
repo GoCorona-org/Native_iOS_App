@@ -51,27 +51,43 @@ extension QuarantineViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCell", for: indexPath) as! CalendarViewCell
-        
+        let startD = UserDefaults.standard.object(forKey: "StartDate") as? Date
+       
+        let endD = UserDefaults.standard.object(forKey: "EndDate") as? Date
         // Display the weekday ordinal in the calendar cell
         let year = self.year(at: indexPath)
         let month = self.month(at: indexPath)
         if let day = day(at: indexPath) {
             let date = calendar.date(from: DateComponents(calendar: calendar, year: year, month: month, day: day))!
             cell.date = date
+            if startD != nil && endD != nil {
+                let priviousStartDate = Calendar.current.date(byAdding: .day, value: -1, to: startD!)
+                if cell.date! >= priviousStartDate! && cell.date! <= endD! {
+                    cell.cellView.backgroundColor = UIColor(rgb: 0xFFB8C4)
+                }
+                else{
+                    cell.cellView.backgroundColor = .white
+                }
+            }
+            else{
+                cell.cellView.backgroundColor = .white
+            }
+            
             cell.numberLabel.text = "\(day)"
             cell.cellView.layer.borderColor = UIColor(rgb: 0x909090).withAlphaComponent(1).cgColor
+            cell.numberLabel.textColor = .label
             // If the day matches today, highlight the number with a different color
-            if calendar.compare(date, to: Date(), toGranularity: .day) == .orderedSame {
-                cell.numberLabel.textColor = .black
-                cell.numberLabel.font = .boldSystemFont(ofSize: 11)
-            } else {
-                cell.numberLabel.textColor = .label
-            }
+//            if calendar.compare(date, to: Date(), toGranularity: .day) == .orderedSame {
+//                cell.numberLabel.textColor = .label
+//            } else {
+//                cell.numberLabel.textColor = .label
+//            }
         } else {
             cell.date = nil
             cell.numberLabel.text = ""
             cell.numberLabel.textColor = .label
             cell.cellView.layer.borderColor = UIColor(rgb: 0x909090).withAlphaComponent(0.4).cgColor
+            cell.cellView.backgroundColor = .white
         }
         
         
@@ -133,7 +149,7 @@ extension QuarantineViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
-        return CGSize(width: Int(gradientView.bounds.width), height: headerHeight)
+        return CGSize(width: Int(calendarView.bounds.width), height: headerHeight)
     }
 }
 

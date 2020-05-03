@@ -144,7 +144,7 @@ class CheckupViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         bodySize = bodyBaseView.frame.size
     }
     

@@ -22,12 +22,19 @@ class QuarantineViewController: UIViewController{
     var selectedDate: Date?
     var firstTimeRunning = true
     
+    var firstTimeDateSeleted = true
+    
+    
+    var endDate = Date()
+    var tempEndDate = Date()
+    var startDate = Date()
+    var tempStartDate = Date()
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
     
-    let scrollBaseView: UIView = {
+    let calendarView: UIView = {
         let view = UIView()
         var finalHeight: CGFloat = 0.0
         if let size = bodySize  {
@@ -123,21 +130,7 @@ class QuarantineViewController: UIViewController{
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    let gradientView: GradientView = {
-        let view = GradientView()
-        view.frame = CGRect(x: 0, y: 0, width: 330, height: 330)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let calendarView: UIView = {
-        let view = UIView()
-        view.frame = CGRect(x: 0, y: 0, width: 330, height: 550)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
+        
     let bottomView: UIView = {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 70)
@@ -179,7 +172,7 @@ class QuarantineViewController: UIViewController{
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 1
-        collectionView = UICollectionView(frame: scrollBaseView.frame, collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: calendarView.frame, collectionViewLayout: layout)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -202,17 +195,13 @@ class QuarantineViewController: UIViewController{
             menuButton.addTarget(self, action: #selector(sideMenuPressed(sender:)), for: .touchUpInside)
             view.addSubview(nav)
         }
-                
+            
         addViews()
         placeViews()
-        
+        createCalenderView()
+
         addIntoBodyView()
         placeCalenderViews()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
-        bodySize = bodyBaseView.frame.size
         
         quarantineButton.isEnabled = false
         shoppingDaysButton.isEnabled = false
@@ -222,19 +211,26 @@ class QuarantineViewController: UIViewController{
         quarantineButton.backgroundColor = UIColor(rgb: 0xFFB8C4)
         shoppingDaysButton.backgroundColor = UIColor(rgb: 0xA9E7CB)
         shoppingListButton.setImage(UIImage(named: "shoppinglistselected"), for: .normal)
-        
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        bodySize = bodyBaseView.frame.size
         let today = Date()
         let year = calendar.component(.year, from: today)
         let month = calendar.component(.month, from: today)
         let day = calendar.component(.day, from: today)
         let dayOffset = self.dayOffset(year: year, month: month)
+
         
         if firstTimeRunning {
             collectionView.scrollToItem(at: IndexPath(item: day + dayOffset + 7, section: numberOfPastMonths), at: .centeredVertically, animated: false)
+           
             firstTimeRunning = false
         }        
     }
-    
+
     private func addViews() {
         
         headerView.addSubview(quarantineButton)
@@ -309,35 +305,22 @@ class QuarantineViewController: UIViewController{
     }
     
     func addIntoBodyView() {
-        createCalenderView()
         calendarView.addSubview(collectionView)
-        gradientView.addSubview(calendarView)
-        scrollBaseView.addSubview(gradientView)
-        view.addSubview(scrollBaseView)
+        view.addSubview(calendarView)
         bottomView.isHidden = true
     }
     
     func placeCalenderViews() {
         
-        scrollBaseView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
-        scrollBaseView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        scrollBaseView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        scrollBaseView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        calendarView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+        calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        calendarView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         
-        gradientView.topAnchor.constraint(equalTo: scrollBaseView.topAnchor).isActive = true
-        gradientView.leadingAnchor.constraint(equalTo: scrollBaseView.leadingAnchor).isActive = true
-        gradientView.trailingAnchor.constraint(equalTo: scrollBaseView.trailingAnchor).isActive = true
-        gradientView.bottomAnchor.constraint(equalTo: scrollBaseView.bottomAnchor).isActive = true
-        
-        calendarView.topAnchor.constraint(equalTo: scrollBaseView.topAnchor).isActive = true
-        calendarView.leadingAnchor.constraint(equalTo: scrollBaseView.leadingAnchor).isActive = true
-        calendarView.trailingAnchor.constraint(equalTo: scrollBaseView.trailingAnchor).isActive = true
-        calendarView.bottomAnchor.constraint(equalTo: scrollBaseView.bottomAnchor).isActive = true
-        
-        collectionView.topAnchor.constraint(equalTo: scrollBaseView.topAnchor).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: scrollBaseView.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: scrollBaseView.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: scrollBaseView.bottomAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: calendarView.topAnchor).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: calendarView.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: calendarView.trailingAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: calendarView.bottomAnchor).isActive = true
     }
     
     @objc func sideMenuPressed(sender: UIButton) {
@@ -350,7 +333,8 @@ class QuarantineViewController: UIViewController{
         quarantineButton.isEnabled = true
         shoppingDaysButton.isEnabled = true
         shoppingListButton.isEnabled = true
-        
+        UserDefaults.standard.removeObject(forKey: "StartDate")
+        UserDefaults.standard.removeObject(forKey: "EndDate")
         let selfQuarantineVC = SelfQuarantineViewController()
         self.navigationController?.pushViewController(selfQuarantineVC, animated: true)
     }
@@ -361,86 +345,11 @@ class QuarantineViewController: UIViewController{
     
     @objc func shoppingDaysPressed(sender: UIButton) {
         print("Shopping days pressed.")
-        
-        let shoppingDaysVC = ShoppingDaysViewController()
-        self.navigationController?.pushViewController(shoppingDaysVC, animated: true)
     }
     
     @objc func shoppingListPressed(sender: UIButton) {
         print("Shopping list pressed.")
-        quarantineButton.backgroundColor = UIColor(rgb: 0xEEEEEE)
-        shoppingDaysButton.backgroundColor = UIColor(rgb: 0xEEEEEE)
     }
-    
-    func openDatePicker(sender: UIButton) {
-        let currentDate = Date()
-        var dateComponents = DateComponents()
-        dateComponents.month = +3
-        let threeMonth = Calendar.current.date(byAdding: dateComponents, to: currentDate)
-        
-        datePicker.show("Select Date",
-                        doneButtonTitle: "Done",
-                        cancelButtonTitle: "Cancel",
-                        minimumDate: currentDate,
-                        maximumDate: threeMonth,
-                        datePickerMode: .date) { (date) in
-                            if let dt = date {
-                                let formatterDay = DateFormatter()
-                                let formatterMonth = DateFormatter()
-                                formatterDay.dateFormat = "dd"
-                                formatterMonth.dateFormat = "MM"
-                                if sender.tag == 1{
-                                    sender.setTitle(formatterDay.string(from: dt), for: .normal)
-                                    if let button = self.view.viewWithTag(2) as? UIButton
-                                    {
-                                        button.setTitle(formatterMonth.string(from: dt), for: .normal)
-                                    }
-                                }
-                                else if sender.tag == 2{
-                                    sender.setTitle(formatterMonth.string(from: dt), for: .normal)
-                                    if let button = self.view.viewWithTag(1) as? UIButton
-                                    {
-                                        button.setTitle(formatterDay.string(from: dt), for: .normal)
-                                    }
-                                }
-                                else if sender.tag == 3{
-                                    sender.setTitle(formatterDay.string(from: dt), for: .normal)
-                                    if let button = self.view.viewWithTag(4) as? UIButton
-                                    {
-                                        button.setTitle(formatterMonth.string(from: dt), for: .normal)
-                                    }
-                                }
-                                else if sender.tag == 4{
-                                    sender.setTitle(formatterMonth.string(from: dt), for: .normal)
-                                    if let button = self.view.viewWithTag(3) as? UIButton
-                                    {
-                                        button.setTitle(formatterDay.string(from: dt), for: .normal)
-                                    }
-                                }
-                                else if sender.tag == 5{
-                                    sender.setTitle(formatterDay.string(from: dt), for: .normal)
-                                    if let button = self.view.viewWithTag(6) as? UIButton
-                                    {
-                                        button.setTitle(formatterMonth.string(from: dt), for: .normal)
-                                    }
-                                }
-                                else{
-                                    sender.setTitle(formatterMonth.string(from: dt), for: .normal)
-                                    if let button = self.view.viewWithTag(5) as? UIButton
-                                    {
-                                        button.setTitle(formatterDay.string(from: dt), for: .normal)
-                                    }
-                                }
-                            }
-        }
-    }
-    
-    let datePicker = DatePickerDialog(
-        textColor: .black,
-        buttonColor: .black,
-        font: UIFont.boldSystemFont(ofSize: 17),
-        showCancelButton: true
-    )
     
     @objc func doneButtonIsTapped(sender: UIButton) {
         print("Next button is pressed.")

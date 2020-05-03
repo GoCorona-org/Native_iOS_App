@@ -72,7 +72,6 @@
 		56EA30B524484F1D0044DEED /* PatientSCFourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA30B424484F1D0044DEED /* PatientSCFourViewController.swift */; };
 		56EA30B7244850FC0044DEED /* PatientSCFiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA30B6244850FC0044DEED /* PatientSCFiveViewController.swift */; };
 		56EA30B9244854950044DEED /* PatientSCSixViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA30B8244854950044DEED /* PatientSCSixViewController.swift */; };
-		59091088245C3846000E694B /* ShoppingDaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59091087245C3846000E694B /* ShoppingDaysViewController.swift */; };
 		5957F21C2456E213002FD712 /* CalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5957F21A2456E213002FD712 /* CalendarViewCell.swift */; };
 		5957F21F24570093002FD712 /* CalenderSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5957F21E24570093002FD712 /* CalenderSeparator.swift */; };
 		596CB76A2455CCFC0051DFED /* CalenderCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596CB7692455CCFC0051DFED /* CalenderCollectionView.swift */; };
@@ -148,7 +147,6 @@
 		56EA30B424484F1D0044DEED /* PatientSCFourViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSCFourViewController.swift; sourceTree = "<group>"; };
 		56EA30B6244850FC0044DEED /* PatientSCFiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSCFiveViewController.swift; sourceTree = "<group>"; };
 		56EA30B8244854950044DEED /* PatientSCSixViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSCSixViewController.swift; sourceTree = "<group>"; };
-		59091087245C3846000E694B /* ShoppingDaysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingDaysViewController.swift; sourceTree = "<group>"; };
 		5957F21A2456E213002FD712 /* CalendarViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewCell.swift; sourceTree = "<group>"; };
 		5957F21E24570093002FD712 /* CalenderSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderSeparator.swift; sourceTree = "<group>"; };
 		596CB7692455CCFC0051DFED /* CalenderCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderCollectionView.swift; sourceTree = "<group>"; };
@@ -357,7 +355,6 @@
 				5957F1CA24560223002FD712 /* CalenderView */,
 				59DBB9B5245A157E00558282 /* DatePicker */,
 				59DBB9B2245A095700558282 /* SelfQuarantineViewController.swift */,
-				59091087245C3846000E694B /* ShoppingDaysViewController.swift */,
 			);
 			path = QuarantineFlow;
 			sourceTree = "<group>";
@@ -535,7 +532,6 @@
 				56572E922459B00A00643BB8 /* MedicalScoreViewController.swift in Sources */,
 				5666E45A24404651003B1965 /* ViewController.swift in Sources */,
 				56572E58244DCFCA00643BB8 /* IntersectionCalculatorTnCViewController.swift in Sources */,
-				59091088245C3846000E694B /* ShoppingDaysViewController.swift in Sources */,
 				56E194202440F27200EB08D0 /* CrossCheckViewController.swift in Sources */,
 				567D58622441E6BA00B0BE38 /* PatientIdentificationViewController.swift in Sources */,
 				56EA2BD4244583280044DEED /* LocationHistory.swift in Sources */,

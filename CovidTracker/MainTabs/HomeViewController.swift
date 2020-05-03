@@ -25,7 +25,7 @@ class HomeViewController: UIViewController {
     let sampleCoords: [CLLocationCoordinate2D] = [CLLocationCoordinate2D(latitude: 35.68, longitude: 139.86), CLLocationCoordinate2D(latitude: 35.680529, longitude: 139.868503), CLLocationCoordinate2D(latitude: 35.683248, longitude: 139.868197), CLLocationCoordinate2D(latitude: 35.683631, longitude: 139.866750), CLLocationCoordinate2D(latitude: 35.682594, longitude: 139.865612)]
     
     override func viewDidLoad() {
-        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         let camera = GMSCameraPosition.camera(withLatitude: 35.68, longitude: 139.86, zoom: 15.0)
         mapView = GMSMapView.map(withFrame: UIScreen.main.bounds, camera: camera)
         view.addSubview(mapView)
@@ -49,7 +49,6 @@ class HomeViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
         /*navigationController?.navigationBar.barTintColor = UIColor(rgb: 0xE72E68)
         navigationController?.navigationBar.topItem?.title = "SPOT CORONA"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont(name: "HelveticaNeue", size: 20) ?? UIFont.systemFont(ofSize: 20)]*/

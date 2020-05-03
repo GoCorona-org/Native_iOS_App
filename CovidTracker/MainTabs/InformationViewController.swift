@@ -38,7 +38,7 @@ class InformationViewController: UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = .white
-        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         let navView = createNavView()
         if let menuButton = navView.subviews.first(where: {$0 is UIButton}) as? UIButton {
             menuButton.addTarget(self, action: #selector(sideMenuPressed(sender:)), for: .touchUpInside)

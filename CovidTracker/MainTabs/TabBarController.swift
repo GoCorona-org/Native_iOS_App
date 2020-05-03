@@ -17,13 +17,13 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         tabBar.backgroundColor = .white
         
-        let homeVC = HomeViewController()
+        let homeVC = UINavigationController(rootViewController: HomeViewController())
         homeVC.tabBarItem.title = "Home"
         homeVC.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor(rgb: 0xE72E68)], for: UIControl.State.selected)
         homeVC.tabBarItem.image = UIImage(named: "hometab")
         homeVC.tabBarItem.selectedImage = UIImage(named: "hometabselected")
         
-        let qVC = QuarantineViewController()
+        let qVC = UINavigationController(rootViewController: QuarantineViewController())
         qVC.tabBarItem.title = "Quarantine"
         qVC.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor(rgb: 0xE72E68)], for: UIControl.State.selected)
         qVC.tabBarItem.image = UIImage(named: "quarantine")
@@ -41,7 +41,7 @@ class TabBarController: UITabBarController {
         crossCheckVC.tabBarItem.image = UIImage(named: "crosscheck")
         crossCheckVC.tabBarItem.selectedImage = UIImage(named: "crosscheckselected")
         
-        let infoVC = InformationViewController()
+        let infoVC = UINavigationController(rootViewController: InformationViewController())
         infoVC.tabBarItem.title = "Information"
         infoVC.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor(rgb: 0xE72E68)], for: UIControl.State.selected)
         infoVC.tabBarItem.image = UIImage(named: "information")
@@ -50,6 +50,10 @@ class TabBarController: UITabBarController {
         viewControllers = [homeVC, qVC, checkupVC, crossCheckVC, infoVC]
         
         selectedViewController = homeVC
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     @objc func sideMenuPressed(sender: UIButton) {

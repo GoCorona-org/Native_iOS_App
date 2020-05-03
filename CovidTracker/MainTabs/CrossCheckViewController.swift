@@ -215,7 +215,7 @@ class CrossCheckViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     private func addViews() {
