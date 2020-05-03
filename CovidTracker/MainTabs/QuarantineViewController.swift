@@ -183,6 +183,7 @@ class QuarantineViewController: UIViewController{
         collectionView.register(CalendarViewCell.self, forCellWithReuseIdentifier: "calendarCell")
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = UIColor.white
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     var navView: UIView?
@@ -257,8 +258,7 @@ class QuarantineViewController: UIViewController{
         
         myCalenderLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 20).isActive = true
         myCalenderLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor).isActive = true
-        myCalenderLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 80).isActive = true
-        myCalenderLabel.widthAnchor.constraint(equalToConstant: 112).isActive = true
+        myCalenderLabel.widthAnchor.constraint(equalToConstant: 220).isActive = true
         myCalenderLabel.heightAnchor.constraint(equalToConstant: 37).isActive = true
         
         calenderEditButton.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 17).isActive = true
@@ -267,26 +267,24 @@ class QuarantineViewController: UIViewController{
         calenderEditButton.heightAnchor.constraint(equalToConstant: 39).isActive = true
         
         quarantineButton.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 80).isActive = true
-        quarantineButton.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 60).isActive = true
+        quarantineButton.centerXAnchor.constraint(equalTo: headerView.centerXAnchor, constant: -80).isActive = true
         quarantineButton.widthAnchor.constraint(equalToConstant: 102).isActive = true
         quarantineButton.heightAnchor.constraint(equalToConstant: 36).isActive = true
         
         shoppingDaysButton.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 80).isActive = true
-        shoppingDaysButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -95).isActive = true
         shoppingDaysButton.leadingAnchor.constraint(equalTo: quarantineButton.trailingAnchor, constant: 5).isActive = true
         shoppingDaysButton.widthAnchor.constraint(equalToConstant: 128).isActive = true
         shoppingDaysButton.heightAnchor.constraint(equalToConstant: 36).isActive = true
-        
+           
         shoppingListButton.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 80).isActive = true
-        shoppingDaysButton.leadingAnchor.constraint(equalTo: shoppingListButton.trailingAnchor, constant: 5).isActive = true
-        shoppingListButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -55).isActive = true
+        shoppingListButton.leadingAnchor.constraint(equalTo: shoppingDaysButton.trailingAnchor, constant: 5).isActive = true
         shoppingListButton.widthAnchor.constraint(equalToConstant: 33).isActive = true
         shoppingListButton.heightAnchor.constraint(equalToConstant: 36).isActive = true
         
-        bottomView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
-        bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bottomView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        bottomView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         
         doneButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor).isActive = true
         doneButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -20).isActive = true
@@ -313,14 +311,14 @@ class QuarantineViewController: UIViewController{
     func placeCalenderViews() {
         
         calendarView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+        calendarView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        calendarView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         
         collectionView.topAnchor.constraint(equalTo: calendarView.topAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: calendarView.bottomAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: calendarView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: calendarView.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: calendarView.bottomAnchor).isActive = true
     }
     
     @objc func sideMenuPressed(sender: UIButton) {
