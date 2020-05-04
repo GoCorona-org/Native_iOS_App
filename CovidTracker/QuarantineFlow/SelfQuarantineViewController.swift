@@ -15,6 +15,10 @@ class SelfQuarantineViewController: QuarantineViewController {
         return .portrait
     }
     
+    var tempEndDate = Date()
+    var tempStartDate = Date()
+    var tempDateAdded = Date()
+    
     let selfQuarantineLabel: UILabel = {
         let label = UILabel()
         label.frame = CGRect(x: 0, y: 0, width: 240, height: 25)
@@ -22,7 +26,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         label.textAlignment = .left
         label.textColor = .black
         label.font = UIFont(name: "FiraSans-ExtraBold", size: 17)
-        label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -49,7 +52,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         dayButton.setTitle("DD", for: .normal)
         dayButton.setTitleColor(UIColor(rgb: 0x989898), for: .normal)
         dayButton.titleLabel?.font = UIFont(name: "FiraSans-Bold", size: 15)
-        dayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         dayButton.layer.cornerRadius = 8
         dayButton.layer.borderWidth = 0.3
         dayButton.layer.borderColor = UIColor(rgb: 0x707070).cgColor
@@ -64,7 +66,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         monthButton.setTitle("MM", for: .normal)
         monthButton.setTitleColor(UIColor(rgb: 0x989898), for: .normal)
         monthButton.titleLabel?.font = UIFont(name: "FiraSans-Bold", size: 15)
-        monthButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         monthButton.layer.cornerRadius = 8
         monthButton.layer.borderWidth = 0.3
         monthButton.layer.borderColor = UIColor(rgb: 0x707070).cgColor
@@ -102,7 +103,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         dayButton.setTitle("DD", for: .normal)
         dayButton.setTitleColor(UIColor(rgb: 0x989898), for: .normal)
         dayButton.titleLabel?.font = UIFont(name: "FiraSans-Bold", size: 15)
-        dayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         dayButton.layer.cornerRadius = 8
         dayButton.layer.borderWidth = 0.3
         dayButton.layer.borderColor = UIColor(rgb: 0x707070).cgColor
@@ -117,7 +117,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         monthButton.setTitle("MM", for: .normal)
         monthButton.setTitleColor(UIColor(rgb: 0x989898), for: .normal)
         monthButton.titleLabel?.font = UIFont(name: "FiraSans-Bold", size: 15)
-        monthButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         monthButton.layer.cornerRadius = 8
         monthButton.layer.borderWidth = 0.3
         monthButton.layer.borderColor = UIColor(rgb: 0x707070).cgColor
@@ -142,7 +141,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         button.setTitle("UPDATE EDIT", for: .normal)
         button.setTitleColor(UIColor(rgb:0x989898), for: .normal)
         button.titleLabel?.font = UIFont(name: "FiraSans-ExtraBold", size: 15)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 0.7
         button.layer.borderColor = UIColor(rgb: 0x909090).cgColor
@@ -180,7 +178,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         label.textAlignment = .left
         label.textColor = .black
         label.font = UIFont(name: "FiraSans-ExtraBold", size: 17)
-        label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -207,7 +204,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         dayButton.setTitle("DD", for: .normal)
         dayButton.setTitleColor(UIColor(rgb: 0x989898), for: .normal)
         dayButton.titleLabel?.font = UIFont(name: "FiraSans-Bold", size: 15)
-        dayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         dayButton.layer.cornerRadius = 8
         dayButton.layer.borderWidth = 0.3
         dayButton.layer.borderColor = UIColor(rgb: 0x707070).cgColor
@@ -222,7 +218,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         monthButton.setTitle("MM", for: .normal)
         monthButton.setTitleColor(UIColor(rgb: 0x989898), for: .normal)
         monthButton.titleLabel?.font = UIFont(name: "FiraSans-Bold", size: 15)
-        monthButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         monthButton.layer.cornerRadius = 8
         monthButton.layer.borderWidth = 0.3
         monthButton.layer.borderColor = UIColor(rgb: 0x707070).cgColor
@@ -260,7 +255,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         dayButton.setTitle("DD", for: .normal)
         dayButton.setTitleColor(UIColor(rgb: 0x989898), for: .normal)
         dayButton.titleLabel?.font = UIFont(name: "FiraSans-Bold", size: 15)
-        dayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         dayButton.layer.cornerRadius = 8
         dayButton.layer.borderWidth = 0.3
         dayButton.layer.borderColor = UIColor(rgb: 0x707070).cgColor
@@ -275,7 +269,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         monthButton.setTitle("MM", for: .normal)
         monthButton.setTitleColor(UIColor(rgb: 0x989898), for: .normal)
         monthButton.titleLabel?.font = UIFont(name: "FiraSans-Bold", size: 15)
-        monthButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         monthButton.layer.cornerRadius = 8
         monthButton.layer.borderWidth = 0.3
         monthButton.layer.borderColor = UIColor(rgb: 0x707070).cgColor
@@ -314,7 +307,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         dayButton.setTitle("DD", for: .normal)
         dayButton.setTitleColor(UIColor(rgb: 0x989898), for: .normal)
         dayButton.titleLabel?.font = UIFont(name: "FiraSans-Bold", size: 15)
-        dayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         dayButton.layer.cornerRadius = 8
         dayButton.layer.borderWidth = 0.3
         dayButton.layer.borderColor = UIColor(rgb: 0x707070).cgColor
@@ -329,7 +321,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         monthButton.setTitle("MM", for: .normal)
         monthButton.setTitleColor(UIColor(rgb: 0x989898), for: .normal)
         monthButton.titleLabel?.font = UIFont(name: "FiraSans-Bold", size: 15)
-        monthButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         monthButton.layer.cornerRadius = 8
         monthButton.layer.borderWidth = 0.3
         monthButton.layer.borderColor = UIColor(rgb: 0x707070).cgColor
@@ -354,7 +345,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         button.setTitle("DELETE", for: .normal)
         button.setTitleColor(UIColor(rgb:0x989898), for: .normal)
         button.titleLabel?.font = UIFont(name: "FiraSans-ExtraBold", size: 15)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 0.7
         button.layer.borderColor = UIColor(rgb: 0x909090).cgColor
@@ -371,7 +361,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         button.setTitle("DELETE", for: .normal)
         button.setTitleColor(UIColor(rgb:0x989898), for: .normal)
         button.titleLabel?.font = UIFont(name: "FiraSans-ExtraBold", size: 15)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 0.7
         button.layer.borderColor = UIColor(rgb: 0x909090).cgColor
@@ -388,7 +377,6 @@ class SelfQuarantineViewController: QuarantineViewController {
         button.setTitle("ADD", for: .normal)
         button.setTitleColor(UIColor(rgb:0x989898), for: .normal)
         button.titleLabel?.font = UIFont(name: "FiraSans-ExtraBold", size: 15)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 0.7
         button.layer.borderColor = UIColor(rgb: 0x909090).cgColor
@@ -565,13 +553,13 @@ class SelfQuarantineViewController: QuarantineViewController {
     
     @objc func updateEditPressed(sender: UIButton) {
         print("Back button is pressed.")
+        UserDefaults.standard.set(startDate, forKey: "StartDate")
+        UserDefaults.standard.set(endDate, forKey: "EndDate")
     }
     
     override func doneButtonIsTapped(sender: UIButton) {
         print("Next button is pressed.")
         if endDate > startDate {
-            UserDefaults.standard.set(startDate, forKey: "StartDate")
-            UserDefaults.standard.set(endDate, forKey: "EndDate")
             let qurantineVC = QuarantineViewController()
             self.navigationController?.pushViewController(qurantineVC, animated: false)
         }
@@ -597,6 +585,8 @@ class SelfQuarantineViewController: QuarantineViewController {
     
     @objc func addButtonPressed(sender: UIButton) {
         print("Back button is pressed.")
+        shoppingDateAdded = tempDateAdded
+        UserDefaults.standard.set(shoppingDateAdded, forKey: "ShoppingDateAdded")
     }
     
     func openDatePicker(sender: UIButton) {
@@ -703,6 +693,7 @@ class SelfQuarantineViewController: QuarantineViewController {
                                     }
                                 }
                                 else if sender.tag == 5{
+                                    self.tempDateAdded = dt
                                     sender.setTitle(formatterDay.string(from: dt), for: .normal)
                                     if let button = self.view.viewWithTag(6) as? UIButton
                                     {
@@ -710,6 +701,7 @@ class SelfQuarantineViewController: QuarantineViewController {
                                     }
                                 }
                                 else{
+                                    self.tempDateAdded = dt
                                     sender.setTitle(formatterMonth.string(from: dt), for: .normal)
                                     if let button = self.view.viewWithTag(5) as? UIButton
                                     {

@@ -75,6 +75,7 @@
 		5957F21C2456E213002FD712 /* CalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5957F21A2456E213002FD712 /* CalendarViewCell.swift */; };
 		5957F21F24570093002FD712 /* CalenderSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5957F21E24570093002FD712 /* CalenderSeparator.swift */; };
 		596CB76A2455CCFC0051DFED /* CalenderCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596CB7692455CCFC0051DFED /* CalenderCollectionView.swift */; };
+		59AEFC682460A074009DA5B9 /* OTPVerifyViewiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AEFC672460A073009DA5B9 /* OTPVerifyViewiController.swift */; };
 		59DBB9B3245A095700558282 /* SelfQuarantineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DBB9B2245A095700558282 /* SelfQuarantineViewController.swift */; };
 		59DBB9B7245A15C800558282 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DBB9B6245A15C800558282 /* DatePickerDialog.swift */; };
 /* End PBXBuildFile section */
@@ -150,6 +151,7 @@
 		5957F21A2456E213002FD712 /* CalendarViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewCell.swift; sourceTree = "<group>"; };
 		5957F21E24570093002FD712 /* CalenderSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderSeparator.swift; sourceTree = "<group>"; };
 		596CB7692455CCFC0051DFED /* CalenderCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderCollectionView.swift; sourceTree = "<group>"; };
+		59AEFC672460A073009DA5B9 /* OTPVerifyViewiController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerifyViewiController.swift; sourceTree = "<group>"; };
 		59DBB9B2245A095700558282 /* SelfQuarantineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfQuarantineViewController.swift; sourceTree = "<group>"; };
 		59DBB9B6245A15C800558282 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		89227C5EFFDD1A1478A10E3A /* libPods-CovidTracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CovidTracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +208,7 @@
 		5666E45424404651003B1965 /* CovidTracker */ = {
 			isa = PBXGroup;
 			children = (
+				59A85276245F0724001849CB /* Login */,
 				56572E5B244EE23300643BB8 /* Assets */,
 				56EA2BD2244583000044DEED /* Helpers */,
 				56EA2BC92444C9E80044DEED /* DocumentPicker */,
@@ -222,8 +225,6 @@
 				5666E45E24404652003B1965 /* Assets.xcassets */,
 				5666E46024404652003B1965 /* LaunchScreen.storyboard */,
 				5666E46324404652003B1965 /* Info.plist */,
-				5666E469244046A9003B1965 /* SignUpViewController.swift */,
-				5666E46D2440524A003B1965 /* SignUpDetailViewController.swift */,
 			);
 			path = CovidTracker;
 			sourceTree = "<group>";
@@ -357,6 +358,16 @@
 				59DBB9B2245A095700558282 /* SelfQuarantineViewController.swift */,
 			);
 			path = QuarantineFlow;
+			sourceTree = "<group>";
+		};
+		59A85276245F0724001849CB /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				5666E469244046A9003B1965 /* SignUpViewController.swift */,
+				5666E46D2440524A003B1965 /* SignUpDetailViewController.swift */,
+				59AEFC672460A073009DA5B9 /* OTPVerifyViewiController.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		59DBB9B5245A157E00558282 /* DatePicker */ = {
@@ -558,6 +569,7 @@
 				56572E5A244DD6E900643BB8 /* TravelQuestionnaireFirstViewController.swift in Sources */,
 				5623942324406743009EF7B7 /* Checkbox.swift in Sources */,
 				56572E662453D59500643BB8 /* TravelQuestionnaireSubmitViewController.swift in Sources */,
+				59AEFC682460A074009DA5B9 /* OTPVerifyViewiController.swift in Sources */,
 				5666E46C2440508C003B1965 /* Common.swift in Sources */,
 				567D5868244307A900B0BE38 /* PatientSymptomCheckViewController.swift in Sources */,
 				562394362440D20B009EF7B7 /* QuarantineViewController.swift in Sources */,

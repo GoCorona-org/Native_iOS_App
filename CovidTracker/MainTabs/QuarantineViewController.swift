@@ -26,9 +26,8 @@ class QuarantineViewController: UIViewController{
     
     
     var endDate = Date()
-    var tempEndDate = Date()
     var startDate = Date()
-    var tempStartDate = Date()
+    var shoppingDateAdded = Date()
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -66,7 +65,6 @@ class QuarantineViewController: UIViewController{
         view.textAlignment = .center
         view.textColor = .black
         view.font = UIFont(name: "FiraSans-ExtraBold", size: 20)
-        view.font = UIFont.boldSystemFont(ofSize: 20)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
