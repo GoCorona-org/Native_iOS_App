@@ -72,6 +72,8 @@
 		56EA30B524484F1D0044DEED /* PatientSCFourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA30B424484F1D0044DEED /* PatientSCFourViewController.swift */; };
 		56EA30B7244850FC0044DEED /* PatientSCFiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA30B6244850FC0044DEED /* PatientSCFiveViewController.swift */; };
 		56EA30B9244854950044DEED /* PatientSCSixViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EA30B8244854950044DEED /* PatientSCSixViewController.swift */; };
+		592AFB732463634700D2BABA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 592AFB722463634700D2BABA /* GoogleService-Info.plist */; };
+		592AFB7524645D3600D2BABA /* LinkedInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592AFB7424645D3600D2BABA /* LinkedInModel.swift */; };
 		5957F21C2456E213002FD712 /* CalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5957F21A2456E213002FD712 /* CalendarViewCell.swift */; };
 		5957F21F24570093002FD712 /* CalenderSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5957F21E24570093002FD712 /* CalenderSeparator.swift */; };
 		596CB76A2455CCFC0051DFED /* CalenderCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596CB7692455CCFC0051DFED /* CalenderCollectionView.swift */; };
@@ -148,6 +150,8 @@
 		56EA30B424484F1D0044DEED /* PatientSCFourViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSCFourViewController.swift; sourceTree = "<group>"; };
 		56EA30B6244850FC0044DEED /* PatientSCFiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSCFiveViewController.swift; sourceTree = "<group>"; };
 		56EA30B8244854950044DEED /* PatientSCSixViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSCSixViewController.swift; sourceTree = "<group>"; };
+		592AFB722463634700D2BABA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		592AFB7424645D3600D2BABA /* LinkedInModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedInModel.swift; sourceTree = "<group>"; };
 		5957F21A2456E213002FD712 /* CalendarViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewCell.swift; sourceTree = "<group>"; };
 		5957F21E24570093002FD712 /* CalenderSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderSeparator.swift; sourceTree = "<group>"; };
 		596CB7692455CCFC0051DFED /* CalenderCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderCollectionView.swift; sourceTree = "<group>"; };
@@ -224,6 +228,7 @@
 				5666E45B24404651003B1965 /* Main.storyboard */,
 				5666E45E24404652003B1965 /* Assets.xcassets */,
 				5666E46024404652003B1965 /* LaunchScreen.storyboard */,
+				592AFB722463634700D2BABA /* GoogleService-Info.plist */,
 				5666E46324404652003B1965 /* Info.plist */,
 			);
 			path = CovidTracker;
@@ -323,6 +328,7 @@
 		56EA2BD2244583000044DEED /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				592AFB7424645D3600D2BABA /* LinkedInModel.swift */,
 				5666E46B2440508C003B1965 /* Common.swift */,
 				5623942224406743009EF7B7 /* Checkbox.swift */,
 				56EA2BD3244583280044DEED /* LocationHistory.swift */,
@@ -472,6 +478,7 @@
 				56572E8E24586F7300643BB8 /* cities.txt in Resources */,
 				56EA2BBE2444A7740044DEED /* FiraSans-BoldItalic.ttf in Resources */,
 				56EA2BBC2444A7740044DEED /* FiraSans-ExtraLightItalic.ttf in Resources */,
+				592AFB732463634700D2BABA /* GoogleService-Info.plist in Resources */,
 				56EA2BC12444A7740044DEED /* FiraSans-Thin.ttf in Resources */,
 				5666E45F24404652003B1965 /* Assets.xcassets in Resources */,
 				56EA2BC42444A7740044DEED /* FiraSans-SemiBoldItalic.ttf in Resources */,
@@ -575,6 +582,7 @@
 				562394362440D20B009EF7B7 /* QuarantineViewController.swift in Sources */,
 				5666E45824404651003B1965 /* SceneDelegate.swift in Sources */,
 				562394382440D24F009EF7B7 /* InformationViewController.swift in Sources */,
+				592AFB7524645D3600D2BABA /* LinkedInModel.swift in Sources */,
 				56EA2BCB2444CA060044DEED /* DocumentPicker.swift in Sources */,
 				567D58642441F61600B0BE38 /* PatientGenderViewController.swift in Sources */,
 			);

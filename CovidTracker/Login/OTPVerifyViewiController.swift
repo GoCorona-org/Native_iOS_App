@@ -182,6 +182,12 @@ class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
         fourthDigitTextField.addTarget(self, action: #selector(textFieldDidChange), for: UIControl.Event.editingChanged)
         fifthDigitTextField.addTarget(self, action: #selector(textFieldDidChange), for: UIControl.Event.editingChanged)
         
+        firstDigitTextField.addTarget(self, action: #selector(textFieldDidBeginEditing), for: .editingDidBegin)
+        secondDigitTextField.addTarget(self, action: #selector(textFieldDidBeginEditing), for:.editingDidBegin)
+        thirdDigitTextField.addTarget(self, action: #selector(textFieldDidBeginEditing), for: .editingDidBegin)
+        fourthDigitTextField.addTarget(self, action: #selector(textFieldDidBeginEditing), for:.editingDidBegin)
+        fifthDigitTextField.addTarget(self, action: #selector(textFieldDidBeginEditing), for: .editingDidBegin)
+        
         addViews()
         placeViews()
         
@@ -323,7 +329,7 @@ class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    @objc private func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
     }
 }

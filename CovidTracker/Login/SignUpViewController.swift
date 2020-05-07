@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FacebookLogin
+import FBSDKLoginKit
+import FacebookCore
+import GoogleSignIn
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, GIDSignInDelegate {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -126,28 +131,31 @@ class SignUpViewController: UIViewController {
         return label
     }()
     
-    let fbLogoImage: UIImageView = {
-        let view = UIImageView()
+    let fbLogoImage: UIButton = {
+        let view = UIButton()
         view.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        view.image = UIImage(named: "facebooklogo")
+        view.setImage(UIImage(named: "facebooklogo"), for: .normal)
+        view.addTarget(self, action: #selector(fbSignInButtonTapped(sender:)), for: .touchUpInside)
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let googleLogoImage: UIImageView = {
-        let view = UIImageView()
+    let googleLogoImage: UIButton = {
+        let view = UIButton()
         view.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        view.image = UIImage(named: "googlelogo")
+        view.setImage(UIImage(named: "googlelogo"), for: .normal)
+        view.addTarget(self, action: #selector(googleSignInButtonTapped(sender:)), for: .touchUpInside)
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let linkedInLogoImage: UIImageView = {
-        let view = UIImageView()
+    let linkedInLogoImage: UIButton = {
+        let view = UIButton()
         view.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        view.image = UIImage(named: "linkedinlogo")
+        view.setImage(UIImage(named: "linkedinlogo"), for: .normal)
+        view.addTarget(self, action: #selector(linkedInSignInButtonTapped(sender:)), for: .touchUpInside)
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -183,6 +191,16 @@ class SignUpViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         addViews()
         placeViews()
+        
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        
+        // Automatically sign in the user.
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        
+        if let token = AccessToken.current,
+            !token.isExpired {
+            // User is logged in, do work such as go to next view controller.
+        }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardTap))
         tapGesture.numberOfTapsRequired = 1
@@ -281,8 +299,146 @@ class SignUpViewController: UIViewController {
         passwordField.resignFirstResponder()
     }
     
+    
+    //MARK:- PHONE NUMBER LOGIN
     @objc func loginButtonTapped(sender: UIButton){
         print("Tapped on the login button.")
+        //change email address to phone number
+        Auth.auth().signIn(withEmail: (phNumberField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""), password: (passwordField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "")) { (result, error) in
+            if let _eror = error{
+                print(_eror.localizedDescription)
+            }else{
+                if let _res = result{
+                    print(_res)
+                    self.loginSuccessful()
+                }
+            }
+        }
+    }
+    
+    
+    //MARK:- FACEBOOK LOGIN METHOD
+    @objc func fbSignInButtonTapped(sender: UIButton){
+        print("Tapped on the Facebook login button.")
+        getFacebookUserInfo()
+    }
+    
+    func getFacebookUserInfo(){
+        let loginManager = LoginManager()
+        //        https://developers.facebook.com/docs/facebook-login/permissions
+        loginManager.logIn(permissions: ["public_profile", "email"], viewController: self) { (result) in
+            switch result{
+            case .cancelled:
+                print("Cancel button click")
+            case .success:
+                let facebookCredential:AuthCredential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+                self.loginFireBaseWithCredential(credential: facebookCredential)
+            default:
+                print("??")
+            }
+        }
+    }
+    
+    
+    //MARK:- GOOGLE SIGN IN DELEGATE
+    @objc func googleSignInButtonTapped(sender: UIButton){
+        print("Tapped on the Google login button.")
+        GIDSignIn.sharedInstance().delegate=self
+        GIDSignIn.sharedInstance().signIn()
+    }
+    
+    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+    }
+    func sign(_ signIn: GIDSignIn!,
+              present viewController: UIViewController!) {
+        self.present(viewController, animated: true, completion: nil)
+    }
+    func sign(_ signIn: GIDSignIn!,
+              dismiss viewController: UIViewController!) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+                     withError error: Error!) {
+        if (error == nil) {
+            guard let authentication = user.authentication else { return }
+            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                           accessToken: authentication.accessToken)
+            self.loginFireBaseWithCredential(credential: credential)
+        } else {
+            print("\(error.localizedDescription)")
+        }
+    }
+    
+    //MARK:- FIREBASE AUTHENTICATION
+    func loginFireBaseWithCredential(credential:AuthCredential){
+        Auth.auth().signIn(with: credential) {(result, error) in
+            if error != nil {
+                print("\(credential) Authentification Fail")
+            } else {
+                //firebase user loggedin successfully through google.
+                if let user = result?.user{
+                    print(user.email as Any)
+                    print(user.displayName as Any)
+                    self.loginSuccessful()
+                }
+            }
+        }
+    }
+    
+    //MARK:- LINKEDIN AUTHENTICATION    
+    @objc func linkedInSignInButtonTapped(sender: UIButton){
+        print("Tapped on the LinkedIn login button.")
+        linkedInAuthVC()
+    }
+    
+    var webView = WKWebView()
+    func linkedInAuthVC() {
+        // Create linkedIn Auth ViewController
+        let linkedInVC = UIViewController()
+        // Create WebView
+        let webView = WKWebView()
+        webView.navigationDelegate = self
+        linkedInVC.view.addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: linkedInVC.view.topAnchor),
+            webView.leadingAnchor.constraint(equalTo: linkedInVC.view.leadingAnchor),
+            webView.bottomAnchor.constraint(equalTo: linkedInVC.view.bottomAnchor),
+            webView.trailingAnchor.constraint(equalTo: linkedInVC.view.trailingAnchor)
+        ])
+        
+        let state = "linkedin\(Int(NSDate().timeIntervalSince1970))"
+        
+        let authURLFull = LinkedInConstants.AUTHURL + "?response_type=code&client_id=" + LinkedInConstants.CLIENT_ID + "&scope=" + LinkedInConstants.SCOPE + "&state=" + state + "&redirect_uri=" + LinkedInConstants.REDIRECT_URI
+        
+        
+        let urlRequest = URLRequest.init(url: URL.init(string: authURLFull)!)
+        webView.load(urlRequest)
+        
+        // Create Navigation Controller
+        let navController = UINavigationController(rootViewController: linkedInVC)
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelAction))
+        linkedInVC.navigationItem.leftBarButtonItem = cancelButton
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.refreshAction))
+        linkedInVC.navigationItem.rightBarButtonItem = refreshButton
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navController.navigationBar.titleTextAttributes = textAttributes
+        linkedInVC.navigationItem.title = "linkedin.com"
+        navController.navigationBar.isTranslucent = false
+        navController.navigationBar.tintColor = UIColor.white
+        navController.navigationBar.barTintColor = UIColor.black
+        navController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        navController.modalTransitionStyle = .coverVertical
+        
+        self.present(navController, animated: true, completion: nil)
+    }
+    
+    @objc func cancelAction() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func refreshAction() {
+        self.webView.reload()
     }
     
     @objc func signUpButtonTapped(sender: UIButton) {
@@ -290,5 +446,26 @@ class SignUpViewController: UIViewController {
         let vc = SignUpDetailViewController()
         vc.modalPresentationStyle = .overFullScreen
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    //MARK:- LOGIN SUCCESSFULL
+    func loginSuccessful() {
+        
+        let window = UIApplication.shared.connectedScenes
+            .filter({$0.activationState == .foregroundActive})
+            .map({$0 as? UIWindowScene})
+            .compactMap({$0})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first
+        if let win = window {
+            win.rootViewController = UINavigationController(rootViewController: TabBarController())
+        } else {
+            print("Window not found.")
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 }

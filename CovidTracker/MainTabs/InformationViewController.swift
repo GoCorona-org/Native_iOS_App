@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FacebookLogin
+import FBSDKLoginKit
+import FacebookCore
+import GoogleSignIn
 
 class InformationViewController: UIViewController {
     
@@ -66,6 +71,18 @@ class InformationViewController: UIViewController {
     @objc func sideMenuPressed(sender: UIButton) {
         print("Side menu pressed.")
     }
+    
+    func didTapSignOut() {
+        do {
+            try Auth.auth().signOut()
+            GIDSignIn.sharedInstance().signOut()
+            LoginManager().logOut()
+            print("user signed out")
+        } catch let err {
+            print(err)
+        }
+    }
+    
 }
 extension InformationViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -86,6 +103,14 @@ extension InformationViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 45
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if menuOptions[indexPath.item] == "Logout" {
+            didTapSignOut()
+        }
+    }
+    
 }
 
 class MenuViewCell: UITableViewCell {
