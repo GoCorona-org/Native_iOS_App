@@ -19,7 +19,7 @@ import GoogleSignIn
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let googleApiKey = "AIzaSyCdAZxrKF_HsR22v6BBm6Ry8IrUFgtZunc"
+    let googleApiKey = ""
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey(googleApiKey)
         setIdentifiers()
         FirebaseApp.configure()
-        GIDSignIn.sharedInstance().clientID = "140038051654-u0ulhrnfj3pvh7lqmtf5tkoc8a0fmm20.apps.googleusercontent.com"        
+        GIDSignIn.sharedInstance().clientID = ""
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true
