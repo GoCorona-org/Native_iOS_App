@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpDetailViewController: UIViewController {
+class SignUpDetailViewController: UIViewController, UITextFieldDelegate {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -28,6 +28,7 @@ class SignUpDetailViewController: UIViewController {
         view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
         view.keyboardType = .numberPad
         view.leftViewMode = .always
+        view.tag = 1
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -45,6 +46,7 @@ class SignUpDetailViewController: UIViewController {
         view.backgroundColor = UIColor(rgb: 0xEEEEEE)
         view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
         view.leftViewMode = .always
+        view.tag = 2
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -64,6 +66,7 @@ class SignUpDetailViewController: UIViewController {
         view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
         view.keyboardType = .numberPad
         view.leftViewMode = .always
+        view.tag = 3
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -82,6 +85,7 @@ class SignUpDetailViewController: UIViewController {
         view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
         view.isSecureTextEntry = true
         view.leftViewMode = .always
+        view.tag = 4
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -232,6 +236,11 @@ class SignUpDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = .white
+        
+        ageField.delegate = self
+        genderField.delegate  = self
+        phNumberField.delegate  = self
+        passwordField.delegate  = self
         
         addViews()
         placeViews()
@@ -389,5 +398,32 @@ class SignUpDetailViewController: UIViewController {
     
     @objc func tapOnCreateAccButton(sender: UIButton) {
         print("Clicked on the sign up button.")
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.text == "Phone Number" || textField.text == "Password" || textField.text == "Age" || textField.text == "Gender" {
+            textField.text = ""
+            textField.textColor = .black
+            textField.font = UIFont(name: "FiraSans-Regular", size: 15)
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        if textField.text!.isEmpty{
+            if textField.tag == 1 {
+                textField.text = "Age"
+            }
+            else if textField.tag == 2{
+                textField.text = "Gender"
+            }
+            else if textField.tag == 3{
+                textField.text = "Phone Number"
+            }
+            else if textField.tag == 4{
+                textField.text = "Password"
+            }
+            textField.font = UIFont(name: "FiraSans-Bold", size: 13)
+            textField.textColor = UIColor(rgb:  0x989898)
+        }
     }
 }

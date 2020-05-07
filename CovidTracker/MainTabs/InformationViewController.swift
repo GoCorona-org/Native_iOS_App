@@ -77,12 +77,26 @@ class InformationViewController: UIViewController {
             try Auth.auth().signOut()
             GIDSignIn.sharedInstance().signOut()
             LoginManager().logOut()
+            clearCookies()
             print("user signed out")
         } catch let err {
             print(err)
         }
     }
     
+    func clearCookies()
+    {
+        if let cookies = HTTPCookieStorage.shared.cookies
+        {
+            URLCache.shared.removeAllCachedResponses()
+            URLCache.shared.diskCapacity = 0
+            URLCache.shared.memoryCapacity = 0
+            for cookie in cookies
+            {
+                HTTPCookieStorage.shared.deleteCookie(cookie)
+            }
+        }
+    }
 }
 extension InformationViewController: UITableViewDelegate, UITableViewDataSource {
     

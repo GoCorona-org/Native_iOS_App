@@ -11,7 +11,8 @@ import UIKit
 
 class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
     
-    var otpResendTimer = 119
+    var otpResendTimer = 120
+    var timerTest : Timer?
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -34,7 +35,7 @@ class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
         view.layer.borderWidth = 0.8
         view.layer.cornerRadius = 8
         view.textAlignment = .center
-        view.font = UIFont(name: "FiraSans-Regular", size: 20)
+        view.font = UIFont(name: "FiraSans-Regular", size: 25)
         view.keyboardType = .numberPad
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -48,7 +49,7 @@ class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
         view.layer.borderWidth = 0.8
         view.layer.cornerRadius = 8
         view.textAlignment = .center
-        view.font = UIFont(name: "FiraSans-Regular", size: 20)
+        view.font = UIFont(name: "FiraSans-Regular", size: 25)
         view.keyboardType = .numberPad
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -62,7 +63,7 @@ class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
         view.layer.borderWidth = 0.8
         view.layer.cornerRadius = 8
         view.textAlignment = .center
-        view.font = UIFont(name: "FiraSans-Regular", size: 20)
+        view.font = UIFont(name: "FiraSans-Regular", size: 25)
         view.keyboardType = .numberPad
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -76,7 +77,7 @@ class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
         view.layer.borderWidth = 0.8
         view.layer.cornerRadius = 8
         view.textAlignment = .center
-        view.font = UIFont(name: "FiraSans-Regular", size: 20)
+        view.font = UIFont(name: "FiraSans-Regular", size: 25)
         view.keyboardType = .numberPad
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -90,7 +91,7 @@ class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
         view.layer.borderWidth = 0.8
         view.layer.cornerRadius = 8
         view.textAlignment = .center
-        view.font = UIFont(name: "FiraSans-Regular", size: 20)
+        view.font = UIFont(name: "FiraSans-Regular", size: 25)
         view.keyboardType = .numberPad
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -132,6 +133,7 @@ class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
         label.font = UIFont(name: "FiraSans-Bold", size: 13)
         label.textColor = UIColor(rgb: 0xE03D51)
         label.textAlignment = .center
+        label.text = "120"
         label.isUserInteractionEnabled = true
         label.lineBreakMode = .byWordWrapping
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -168,7 +170,7 @@ class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
         view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = true
         
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+        timerTest = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
         
         firstDigitTextField.delegate = self
         secondDigitTextField.delegate = self
@@ -271,8 +273,15 @@ class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
     
     @objc func updateCounter() {
         if(otpResendTimer > 0) {
-            autoResendTimerLabel.text = String("\(otpResendTimer)")
+            autoResendTimerLabel.text = String("\(otpResendTimer - 1)")
             otpResendTimer -= 1
+        }
+        else{
+            alertPopUp(errorMessage: "Please click on Verify OTP or Resend OTP")
+            resendOTPButton.isEnabled = true
+            otpResendTimer = 120
+            timerTest?.invalidate()
+            timerTest = nil
         }
     }
     
@@ -302,6 +311,8 @@ class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
     
     @objc func resendOTPButtonTapped(sender: UIButton) {
         print("Tapped on resend OTP button.")
+        timerTest = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+        resendOTPButton.isEnabled = false
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -331,5 +342,11 @@ class OTPVerifyViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
+    }
+    
+    func alertPopUp(errorMessage: String) {
+        let alert = UIAlertController(title: "ERROR", message: errorMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
 }

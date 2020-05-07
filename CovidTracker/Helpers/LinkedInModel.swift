@@ -137,10 +137,10 @@ extension SignUpViewController: WKNavigationDelegate {
                 let results = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [AnyHashable: Any]
                 
                 let accessToken = results?["access_token"] as! String
-                print("accessToken is: \(accessToken)")
+//                print("accessToken is: \(accessToken)")
                 
-                let expiresIn = results?["expires_in"] as! Int
-                print("expires in: \(expiresIn)")
+//                let expiresIn = results?["expires_in"] as! Int
+//                print("expires in: \(expiresIn)")
                 
                 // Get user's id, first name, last name, profile pic url
                 self.fetchLinkedInUserProfile(accessToken: accessToken)
@@ -155,25 +155,25 @@ extension SignUpViewController: WKNavigationDelegate {
         let request: NSMutableURLRequest = NSMutableURLRequest(url: verify as URL)
         let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
             if error == nil {
-                let linkedInProfileModel = try? JSONDecoder().decode(LinkedInProfileModel.self, from: data!)
+//                let linkedInProfileModel = try? JSONDecoder().decode(LinkedInProfileModel.self, from: data!)
                 
                 //AccessToken
-                print("LinkedIn Access Token: \(accessToken)")
+//                print("LinkedIn Access Token: \(accessToken)")
                 
-                // LinkedIn Id
-                let linkedinId: String! = linkedInProfileModel?.id
-                print("LinkedIn Id: \(linkedinId ?? "")")
-                
-                // LinkedIn First Name
-                let linkedinFirstName: String! = linkedInProfileModel?.firstName.localized.enUS
-                print("LinkedIn First Name: \(linkedinFirstName ?? "")")
-                
-                // LinkedIn Last Name
-                let linkedinLastName: String! = linkedInProfileModel?.lastName.localized.enUS
-                print("LinkedIn Last Name: \(linkedinLastName ?? "")")
-                
-                // LinkedIn Profile Picture URL
-                let linkedinProfilePic: String!
+//                // LinkedIn Id
+//                let linkedinId: String! = linkedInProfileModel?.id
+////                print("LinkedIn Id: \(linkedinId ?? "")")
+//
+//                // LinkedIn First Name
+//                let linkedinFirstName: String! = linkedInProfileModel?.firstName.localized.enUS
+////                print("LinkedIn First Name: \(linkedinFirstName ?? "")")
+//
+//                // LinkedIn Last Name
+//                let linkedinLastName: String! = linkedInProfileModel?.lastName.localized.enUS
+////                print("LinkedIn Last Name: \(linkedinLastName ?? "")")
+//
+//                // LinkedIn Profile Picture URL
+//                let linkedinProfilePic: String!
                 
                 /*
                  Change row of the 'elements' array to get diffrent size of the profile url
@@ -182,12 +182,12 @@ extension SignUpViewController: WKNavigationDelegate {
                  elements[2] = 400x400
                  elements[3] = 800x800
                  */
-                if let pictureUrls = linkedInProfileModel?.profilePicture.displayImage.elements[2].identifiers[0].identifier {
-                    linkedinProfilePic = pictureUrls
-                } else {
-                    linkedinProfilePic = "Not exists"
-                }
-                print("LinkedIn Profile Avatar URL: \(linkedinProfilePic ?? "")")
+//                if let pictureUrls = linkedInProfileModel?.profilePicture.displayImage.elements[2].identifiers[0].identifier {
+//                    linkedinProfilePic = pictureUrls
+//                } else {
+//                    linkedinProfilePic = "Not exists"
+//                }
+//                print("LinkedIn Profile Avatar URL: \(linkedinProfilePic ?? "")")
                 
                 // Get user's email address
                 self.fetchLinkedInEmailAddress(accessToken: accessToken)
@@ -202,11 +202,11 @@ extension SignUpViewController: WKNavigationDelegate {
         let request: NSMutableURLRequest = NSMutableURLRequest(url: verify as URL)
         let task = URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
             if error == nil {
-                let linkedInEmailModel = try? JSONDecoder().decode(LinkedInEmailModel.self, from: data!)
+//                let linkedInEmailModel = try? JSONDecoder().decode(LinkedInEmailModel.self, from: data!)
                 
                 // LinkedIn Email
-                let linkedinEmail: String! = linkedInEmailModel?.elements[0].elementHandle.emailAddress
-                print("LinkedIn Email: \(linkedinEmail ?? "")")
+//                let linkedinEmail: String! = linkedInEmailModel?.elements[0].elementHandle.emailAddress
+//                print("LinkedIn Email: \(linkedinEmail ?? "")")
                 
                 DispatchQueue.main.async {
                     self.loginSuccessful()

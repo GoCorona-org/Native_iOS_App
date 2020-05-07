@@ -13,7 +13,7 @@ import FBSDKLoginKit
 import FacebookCore
 import GoogleSignIn
 
-class SignUpViewController: UIViewController, GIDSignInDelegate {
+class SignUpViewController: UIViewController, GIDSignInDelegate, UITextFieldDelegate {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -42,6 +42,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate {
         view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
         view.keyboardType = .numberPad
         view.leftViewMode = .always
+        view.tag = 1
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -60,6 +61,7 @@ class SignUpViewController: UIViewController, GIDSignInDelegate {
         view.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: view.frame.height))
         view.isSecureTextEntry = true
         view.leftViewMode = .always
+        view.tag = 2
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -189,6 +191,10 @@ class SignUpViewController: UIViewController, GIDSignInDelegate {
     override func viewDidLoad() {
         view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = true
+        
+        phNumberField.delegate = self
+        passwordField.delegate = self
+        
         addViews()
         placeViews()
         
@@ -250,10 +256,9 @@ class SignUpViewController: UIViewController, GIDSignInDelegate {
         rememberMeLabel.widthAnchor.constraint(equalToConstant: 90).isActive = true
         rememberMeLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        forgotPwdLabel.leadingAnchor.constraint(equalTo: rememberMeLabel.trailingAnchor, constant: 90).isActive = true
         forgotPwdLabel.trailingAnchor.constraint(equalTo: passwordField.trailingAnchor).isActive = true
         forgotPwdLabel.centerYAnchor.constraint(equalTo: checkbox.centerYAnchor).isActive = true
-        forgotPwdLabel.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        forgotPwdLabel.widthAnchor.constraint(equalToConstant: 95).isActive = true
         forgotPwdLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         loginButton.topAnchor.constraint(equalTo: checkbox.bottomAnchor, constant: 30).isActive = true
@@ -275,7 +280,6 @@ class SignUpViewController: UIViewController, GIDSignInDelegate {
         googleLogoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         googleLogoImage.widthAnchor.constraint(equalToConstant: 35).isActive = true
         googleLogoImage.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        
         
         linkedInLogoImage.topAnchor.constraint(equalTo: loginUsingLabel.bottomAnchor, constant: 15).isActive = true
         linkedInLogoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 50).isActive = true
@@ -468,4 +472,27 @@ class SignUpViewController: UIViewController, GIDSignInDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.text == "Phone Number" || textField.text == "Password" {
+            textField.text = ""
+            textField.textColor = .black
+            textField.font = UIFont(name: "FiraSans-Regular", size: 15)
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        
+        if textField.text!.isEmpty{
+            if textField.tag == 1 {
+                textField.text = "Phone Number"
+            }
+            else if textField.tag == 2{
+                textField.text = "Password"
+            }
+            else{
+            }
+            textField.textColor = UIColor(rgb:  0x989898)
+        }
+    }    
 }

@@ -134,5 +134,11 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<string>FALSE</string>
+	<key>FirebaseScreenReportingEnabled</key>
+	<false/>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<string>FALSE</string>
 </dict>
 </plist>
